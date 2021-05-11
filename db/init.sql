@@ -22,6 +22,6 @@ CREATE TABLE Events(
 );
 
 CREATE TABLE Reservations(
-	user_id INT REFERENCES users(id),
+	user_id INT REFERENCES Users(id),
 	event_id INT REFERENCES Events(id)
 );
