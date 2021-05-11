@@ -8,8 +8,7 @@ CREATE TABLE Users(
 	username TEXT,
 	password TEXT,
 	zip TEXT,
-	profile_pic BYTEA,
-	favorite_tags TEXT
+	profile_pic BYTEA
 );
 
 CREATE TABLE Events(
@@ -19,8 +18,7 @@ CREATE TABLE Events(
 	location TEXT,
 	time_start TEXT,
 	time_end TEXT,
-	isVirtual BOOL,
-	tags TEXT
+	isVirtual BOOLEAN
 );
 
 CREATE TABLE Reservations(
