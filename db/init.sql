@@ -8,9 +8,8 @@ CREATE TABLE Users(
 	username TEXT,
 	password TEXT,
 	zip TEXT,
-	profile_pic BYTEA,
-	favorite_tags TEXT
-	);
+	profile_pic BYTEA
+);
 
 CREATE TABLE Events(
 	id SERIAL PRIMARY KEY,
@@ -19,10 +18,10 @@ CREATE TABLE Events(
 	location TEXT,
 	time_start TEXT,
 	time_end TEXT,
-	isVirtual BOOL,
-	tags TEXT
-	);
-	CREATE TABLE Reservations(
-	user_id INT REFERENCES users(id),
+	isVirtual BOOLEAN
+);
+
+CREATE TABLE Reservations(
+	user_id INT REFERENCES Users(id),
 	event_id INT REFERENCES Events(id)
 );

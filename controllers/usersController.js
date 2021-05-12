@@ -16,7 +16,7 @@ const getUser = async (req, res) => {
 }
 
 // gets events for user by their user id api
-const getUserEvents = async (req, res) => {
+const getUsersEvents = async (req, res) => {
     const userId = req.params.id;
     try {
         let user = await User.getUser(userId);
@@ -29,7 +29,7 @@ const getUserEvents = async (req, res) => {
 }
 
 // gets reservations for user by their user id api
-const getUserReservations  = async (req, res) => {
+const getUsersReservations  = async (req, res) => {
     const userId = req.params.id;
     try {
         let user = await User.getUser(userId);
@@ -67,8 +67,8 @@ const updateUser = async (req, res) => {
 
 module.exports = {
     getUser,
-    getUserEvents,
-    getUserReservations,
+    getUsersEvents,
+    getUsersReservations,
     createUser,
     updateUser
 };

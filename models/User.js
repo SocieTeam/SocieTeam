@@ -5,11 +5,11 @@ class User{
         const queryText = 'SELECT * FROM Users WHERE id = $1;';
         return db.query(queryText, [id]).then(results => results.rows[0]);
     }
-    static getUserEvent(id){
+    static getUsersEvent(id){
         const queryText = 'SELECT * FROM Events WHERE user_id = $1;';
         return db.query(queryText, [id]).then(results => results.rows);
     }
-    static getUserReservations(id, eventID){
+    static getUsersReservations(id, eventID){
         const queryText = 'SELECT user_id, event_id FROM Reservations WHERE user_id = $1 AND WHERE event_id = $2;';
         return db.query(queryText, [id,eventID]).then(results => results.rows);
     }
