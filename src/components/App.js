@@ -11,6 +11,12 @@ function App() {
           <Login />
         </Route>
       </Switch>
+      <style jsx>{`
+        .App {
+          display: flex;
+          flex-direction: column;
+        }
+      `}</style>
     </div>
   );
 }

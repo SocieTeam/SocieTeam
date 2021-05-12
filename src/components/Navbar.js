@@ -13,32 +13,59 @@ function Navbar () {
         }, 
         register: {
             route: '/register',
-            name: 'Register'
+            name: 'Sign Up'
         }
     }
 
 
 
     return (
-        <div className="navbar">
+        <nav className="navbar">
             <div className="logo-banner">
                 <h1>SocieTeam</h1>
             </div>
-            <div className="links">
-                {
-                    navbarLinks.map(link => {
-                        return (
-                        <Link 
-                        to={ linkMap[link].route }
-                        key={ link }
-                        >
-                            { linkMap[link].name }
-                        </Link>
-                        )
-                    })
-                }
+            <div className="links-and-user">
+                <div className="links-section">
+                    {
+                        navbarLinks.map(link => {
+                            return (
+                            <Link
+                        
+                            to={ linkMap[link].route }
+                            key={ link }
+                            >
+                                <div className="nav-link">
+                                    { linkMap[link].name }
+                                </div>
+                            </Link>
+                            )
+                        })
+                    }
+                 </div>
             </div>
-        </div>
+            <style jsx>{`
+                .navbar {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: black;
+                    color: white;
+                    padding: 0 1em;
+                }
+                .nav-link {
+                    display: flex;
+                    justify-content: center;
+                    width: 4em;
+                }
+                .links-section {
+                    display: flex;
+                }
+                .links-section a {
+                    text-decoration: none;
+                    color: white;
+                }
+            `}</style>
+        </nav>
     )
 }
 
