@@ -1,11 +1,18 @@
 import StateContext from './contexts/StateContext'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 function Login () {
 
+    const { setNavbarLinks } = useContext(StateContext)
+
+    useEffect(()=> {
+        setNavbarLinks(['login', 'register'])
+    }, [])
+
+
     return (
         <>
-            <div class="name-jumbotron">Login</div>
+            <div className="name-jumbotron">Login</div>
         </>
     )
 }
