@@ -1,7 +1,8 @@
 import {Route, Switch, Redirect} from 'react-router-dom'
 import Login from './Login'
-import SignUp from './SignUp'
+// import SignUp from './SignUp'
 import Navbar from './Navbar'
+import NewEvent from './NewEvent'
 
 function App() {
   return (
@@ -11,8 +12,11 @@ function App() {
         <Route path={['/login']}>
           <Login />
         </Route>
-        <Route path={['/signup']}>
+        {/* <Route path={['/signup']}>
           <SignUp />
+        </Route> */}
+        <Route path={['/newEvent']}>
+          <NewEvent />
         </Route>
       </Switch>
       <style jsx>{`
