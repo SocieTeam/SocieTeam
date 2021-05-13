@@ -25,7 +25,7 @@ function Login () {
                     </div>
                     <div style={{marginTop: '1em'}} className="input-group">
                         <span>Password</span>
-                        <input name="username" type="password"></input>
+                        <input name="password" type="password"></input>
                     </div>
                     <button style={{marginTop: '3em'}} type="submit">LOGIN</button>
                 </form>
@@ -50,12 +50,12 @@ function Login () {
                 .login-form-background {
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
                     align-items: center;
                     flex: 1;
                     background-color: black;
                 }
                 .login-form {
+                    margin-top: 3em;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
