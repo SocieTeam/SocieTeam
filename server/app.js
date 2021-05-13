@@ -5,12 +5,14 @@ const app = express();
 
 
 const userRouter = require('./routes/usersRouter');
+const eventsRouter = require('./routes/eventsRouter');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json())                        
 // app.use(methodOverride('_method'));
 
-app.use('/', userRouter);
+app.use('/users', userRouter);
+app.use('/events', eventsRouter);
 
 
 app.listen(PORT, () => {console.log(`Server is running on ${PORT}`)});
