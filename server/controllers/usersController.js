@@ -20,7 +20,7 @@ const getUsersEvents = async (req, res) => {
     const userId = req.params.id;
     try {
         let user = await User.getUser(userId);
-        let event = await User.getUserEvent(userId);
+        let event = await User.getUsersEvent(userId);
         user.event = event;
         res.status(200).json(user);
     } catch {
