@@ -16,22 +16,23 @@ function Login () {
 
     return (
         <div className="top-level">
-            <div className="name-jumbotron">Login</div>
-            <div className="login-form-background">
-                <form className="login-form" onSubmit={submitHandler}>
+            <div className="name-jumbotron">Sign Up</div>
+            <div className="signup-form-background">
+                <form className="signup-form" onSubmit={submitHandler}>
                     <div className="input-group">
-                        <span>Username OR Email</span>
+                        <span>Email</span>
+                        <input name="username"></input>
+                    </div>
+                    <div style={{marginTop: '1em'}} className="input-group">
+                        <span>Username</span>
                         <input name="username"></input>
                     </div>
                     <div style={{marginTop: '1em'}} className="input-group">
                         <span>Password</span>
                         <input name="password" type="password"></input>
                     </div>
-                    <button style={{marginTop: '3em'}} type="submit">LOGIN</button>
+                    <button style={{marginTop: '3em'}} type="submit">REGISTER</button>
                 </form>
-                <div style={{marginTop: '2em'}} className='register-link'>
-                    <Link to='/register'>Don't Have An Account?<br/>Sign Up Here!</Link>
-                </div>
             </div>
 
             <style jsx>{`
@@ -47,30 +48,30 @@ function Login () {
                     height: 15%;
                     font-size: 2em;
                 }
-                .login-form-background {
+                .signup-form-background {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     flex: 1;
                     background-color: black;
                 }
-                .login-form {
+                .signup-form {
                     margin-top: 3em;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
                     padding: 10%;
-                    height: 40%;
+                    height: 45%;
                     background-color: white;
                     width: 60%;
                     border-radius: 15px;
                 }
-                .login-form input {
+                .signup-form input {
                     background-color: lightgrey;
                     height: 2em;
                     border-radius: 5px;
                 }
-                .login-form button {
+                .signup-form button {
                     display: flex;
                     justify-content: center;
                     align-items: center;

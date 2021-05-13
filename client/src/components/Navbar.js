@@ -11,7 +11,7 @@ function Navbar () {
             route: '/login',
             name: 'Login'
         }, 
-        register: {
+        signup: {
             route: '/signup',
             name: 'Sign Up'
         }
