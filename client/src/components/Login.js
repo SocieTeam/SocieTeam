@@ -1,27 +1,54 @@
 import StateContext from './contexts/StateContext'
-import { useContext, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 function Login () {
 
     const { setNavbarLinks } = useContext(StateContext)
 
+    const [identity, setIdentity] = useState('')
+    const [password, setPassword] = useState('')
+
     useEffect(()=> {
         setNavbarLinks(['login', 'signup'])
-    }, [])
+    }, [setNavbarLinks])
 
     function submitHandler (e) {
         e.preventDefault()
+
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({identity, password})
+        }
+        
+        console.log(options)
+
+        fetch(`${process.env.REACT_APP_API_URL}/users/login`, options)
+        .then(res => res.json())
+        .then(json => {console.log(json)})
+    }
+
+    function changeHandler (e) {
+        switch (e.target.name) {
+            case 'identity':
+                setIdentity(e.target.value)
+                break;
+            case 'password':
+                setPassword(e.target.value)
+                break;
+            default:
+        }
     }
 
     return (
         <div className="top-level">
             <div className="name-jumbotron">Login</div>
             <div className="login-form-background">
-                <form className="login-form" onSubmit={submitHandler}>
+                <form onChange={ changeHandler } className="login-form" onSubmit={submitHandler}>
                     <div className="input-group">
                         <span>Username OR Email</span>
-                        <input name="username"></input>
+                        <input name="identity"></input>
                     </div>
                     <div style={{marginTop: '1em'}} className="input-group">
                         <span>Password</span>

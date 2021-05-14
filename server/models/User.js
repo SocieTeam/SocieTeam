@@ -1,9 +1,17 @@
 const db = require("../db/config");
 
-class User{
+class User {
     static getUser(id){
         const queryText = 'SELECT * FROM Users WHERE id = $1;';
         return db.query(queryText, [id]).then(results => results.rows[0]);
+    }
+    static findUserByUsername(username) {
+        const queryText = 'SELECT * FROM Users WHERE username = $1;'
+        return db.query(queryText, [username]).then(results => results.rows[0]);
+    }
+    static findUserByEmail(email) {
+        const queryText = 'SELECT * FROM Users WHERE email = $1;'
+        return db.query(queryText, [email]).then(results => results.rows[0]);
     }
     static getUsersEvent(id){
         const queryText = 'SELECT * FROM Events WHERE user_id = $1;';
