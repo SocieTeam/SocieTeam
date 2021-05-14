@@ -1,4 +1,4 @@
-const {User} = require('../models/User');
+const { User } = require('../models/User');
 
 // get user in api 
 const getUser = async (req, res) => {
@@ -10,8 +10,8 @@ const getUser = async (req, res) => {
         } else {
             res.status(404).json({message: "user not found"});
         }
-    } catch {
-        res.status(500).send("error");
+    } catch (err) {
+        res.status(500).send(err);
     }
 }
 
@@ -23,8 +23,8 @@ const getUsersEvents = async (req, res) => {
         let event = await User.getUsersEvent(userId);
         user.event = event;
         res.status(200).json(user);
-    } catch {
-        res.status(500).send("error");
+    } catch (err) {
+        res.status(500).send(err);
     }
 }
 
@@ -36,20 +36,20 @@ const getUsersReservations  = async (req, res) => {
         let reservations = await User.getUserReservations(userId);
         user.reservations = reservations;
         res.status(200).json(user);
-    } catch {
-        res.status(500).send("error");
+    } catch (err) {
+        res.status(500).send(err);
     }
 }
 
 // adds a new user
 const createUser = async (req, res) => {
     const user = req.body;
-    let userId = req.params.id;
-    try{
-        const userInfo = await User.createUser(user, userId);
+    console.log(user)
+    try {
+        const userInfo = await User.createUser(user);
         res.status(200).json(userInfo);
-    } catch {
-        res.status(500).send("error");
+    } catch (err) {
+        res.status(500).send(err);
     }
 }
 
@@ -60,8 +60,8 @@ const updateUser = async (req, res) => {
     try{
         const user = await User.updateUser(userId, updatedUser);
         res.status(200).json(user);
-    } catch {
-        res.status(500).send("error");
+    } catch (err) {
+        res.status(500).send(err);
     }
 }
 
