@@ -1,13 +1,16 @@
 import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function Login () {
 
-    const { setNavbarLinks } = useContext(StateContext)
+    const history = useHistory();
+
+    const { setNavbarLinks, setLoggedUser } = useContext(StateContext)
 
     const [identity, setIdentity] = useState('')
     const [password, setPassword] = useState('')
+    const [loginError, setLoginError] = useState(false)
 
     useEffect(()=> {
         setNavbarLinks(['login', 'signup'])
@@ -21,12 +24,19 @@ function Login () {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({identity, password})
         }
-        
-        console.log(options)
 
         fetch(`${process.env.REACT_APP_API_URL}/users/login`, options)
         .then(res => res.json())
-        .then(json => {console.log(json)})
+        .then(json => {
+            if (json.responseType !== 'error') {
+                const verifiedUser = {user: json.username, token: json.token}
+                localStorage.setItem('societeam-token', JSON.stringify(verifiedUser));
+                setLoggedUser(verifiedUser)
+               history.push('/')
+            } else {
+                setLoginError(true)
+            }
+        })
     }
 
     function changeHandler (e) {
@@ -54,6 +64,7 @@ function Login () {
                         <span>Password</span>
                         <input name="password" type="password"></input>
                     </div>
+                    { loginError ? <span>Login Failed</span> : null}
                     <button style={{marginTop: '3em'}} type="submit">LOGIN</button>
                 </form>
                 <div style={{marginTop: '2em'}} className='register-link'>

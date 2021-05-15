@@ -1,9 +1,18 @@
 import {Route, Switch, Redirect} from 'react-router-dom'
+import StateContext from './contexts/StateContext'
+import { useContext, useEffect } from 'react'
 import Login from './Login'
 import SignUp from './SignUp'
 import Navbar from './Navbar'
 
 function App() {
+
+  const { setNavbarLinks } = useContext(StateContext)
+
+  useEffect(() => {
+    setNavbarLinks(['login', 'signup'])
+  }, [setNavbarLinks])
+
   return (
     <div className="App">
       <Navbar/>

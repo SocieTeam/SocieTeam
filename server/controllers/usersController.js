@@ -1,19 +1,16 @@
 const { User } = require('../models/User');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 // Creates custom errors that can be thrown, but also have details that can help later.
 // NOTE: the [type] property codes are being documented in the README.md at the root of the server directory.
 function CustomError (description, responseCode, type) {
+    this.responseType = 'error'
     this.description = description
     this.responseCode = responseCode
-    this.type = type
+    this.errorCode = type
 }
 CustomError = CustomError.bind(new Error())
-
-// An efficent way to check if a user exists by both username or email
-async function checkExistingUser (username, email) {
-   
-}
 
 // DRYs up the catch blocks
 function errorHandler (res, error) {
@@ -80,7 +77,8 @@ const createUser = async (req, res) => {
         const hash = await bcrypt.hash(user.password, 10);
         user.password = hash
         const userInfo = await User.createUser(user);
-        res.status(200).json(userInfo);
+        const token = jwt.sign({userId: userInfo.id}, process.env.JWT_KEY, {expiresIn: 60 * 30})
+        res.status(200).json({username: userInfo.username, responseType: 'success', message: 'Account Creation Successful', token});
     } catch (err) {
         errorHandler(res, err)
     }
@@ -109,7 +107,8 @@ const login = async (req, res) => {
             const identity = emailExists || usernameExists
             const successfulAuth = await bcrypt.compare(credentials.password, identity.password)
             if (successfulAuth) {
-                res.status(200).send('Yay!')
+                const token = jwt.sign({userId: identity.id}, process.env.JWT_KEY, {expiresIn: 60 * 30})
+                res.status(200).json({username: identity.username, responseType: 'success', message: 'Login Successful', token});
             } else {
                 throw new CustomError('Invalid credentials', 401, 4)
             }
