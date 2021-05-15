@@ -2,7 +2,6 @@ const {Event} = require('../models/Event');
 
 
 const createEvent = async (req, res) => {
-    debugger;
     const eventForm = req.body //temporary until react form is made
     const user_id = '1'; //temporary as well until req session cookie is made
     try{

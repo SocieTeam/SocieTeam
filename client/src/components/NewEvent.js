@@ -24,13 +24,6 @@ function NewEvent () {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(obj)
         })
-
-        setTitle('');
-        setVirtual(false);
-        setLocation('');
-        setDescription('');
-        setDate('');
-        setEnd('');
     }
 
 
