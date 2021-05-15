@@ -14,6 +14,9 @@ router.get('/:id/reservations', userController.getUsersReservations);
 // POST: /newUser
 router.post('/newUser', userController.createUser);
 
+// POST: users/login | login route
+router.post('/login', userController.login)
+
 // PATCH: /user/:id (updateUser)
 router.put('/:id', userController.updateUser);
 
