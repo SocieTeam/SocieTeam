@@ -1,9 +1,17 @@
 const db = require("../db/config");
 
-class User{
+class User {
     static getUser(id){
         const queryText = 'SELECT * FROM Users WHERE id = $1;';
         return db.query(queryText, [id]).then(results => results.rows[0]);
+    }
+    static findUserByUsername(username) {
+        const queryText = 'SELECT * FROM Users WHERE username = $1;'
+        return db.query(queryText, [username]).then(results => results.rows[0]);
+    }
+    static findUserByEmail(email) {
+        const queryText = 'SELECT * FROM Users WHERE email = $1;'
+        return db.query(queryText, [email]).then(results => results.rows[0]);
     }
     static getUsersEvent(id){
         const queryText = 'SELECT * FROM Events WHERE user_id = $1;';
@@ -13,10 +21,10 @@ class User{
         const queryText = 'SELECT user_id, event_id FROM Reservations WHERE user_id = $1 AND WHERE event_id = $2;';
         return db.query(queryText, [id,eventID]).then(results => results.rows);
     }
-    static createUser(user, id){
+    static createUser(user){
         const {email, username, password} = user;
         const queryText = 'INSERT INTO Users (email, username, password) VALUES ($1, $2, $3) RETURNING *;';
-        return db.query(queryText, [email, username, password, id]).then(results => results.rows[0]);
+        return db.query(queryText, [email, username, password]).then(results => results.rows[0]);
     }
     static updateUser (id, updateUser){
         const queryText = 'UPDATE Users SET email = $1, username = $2, password = $3 WHERE id = $4;';

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function Navbar () {
 
-    const { navbarLinks } = useContext(StateContext)
+    const { navbarLinks, loggedUser } = useContext(StateContext)
 
     const linkMap = {
         login: {
@@ -16,9 +16,7 @@ function Navbar () {
             name: 'Sign Up'
         }
     }
-
-
-
+    
     return (
         <nav className="navbar">
             <div className="logo-banner">
@@ -42,6 +40,11 @@ function Navbar () {
                         })
                     }
                  </div>
+                { loggedUser ? 
+                    <div className="logged-user">
+                        <span>{ loggedUser.user }</span>
+                    </div> : null
+                }
             </div>
             <style jsx>{`
                 .navbar {
@@ -56,6 +59,9 @@ function Navbar () {
                     display: flex;
                     justify-content: center;
                     width: 4em;
+                }
+                .links-and-user {
+                    display: flex;
                 }
                 .links-section {
                     display: flex;

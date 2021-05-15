@@ -1,27 +1,54 @@
 import StateContext from './contexts/StateContext'
-import { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useContext, useEffect } from 'react'
+// import { Redirect } from 'react-router-dom'
 
-function Login () {
+function SignUp () {
 
     const { setNavbarLinks } = useContext(StateContext)
 
+    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
     useEffect(()=> {
         setNavbarLinks(['login', 'signup'])
-    }, [])
+    }, [setNavbarLinks])
 
     function submitHandler (e) {
         e.preventDefault()
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({email, username, password})
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/users/newUser`, options)
+        .then(res => res.json())
+        .then(json => {console.log(json)})
+    }
+
+    function changeHandler (e) {
+        switch (e.target.name) {
+            case 'email':
+                setEmail(e.target.value)
+                break;
+            case 'username':
+                setUsername(e.target.value)
+                break;
+            case 'password':
+                setPassword(e.target.value)
+                break;
+            default:
+        }
     }
 
     return (
         <div className="top-level">
             <div className="name-jumbotron">Sign Up</div>
             <div className="signup-form-background">
-                <form className="signup-form" onSubmit={submitHandler}>
+                <form onChange={changeHandler} className="signup-form" onSubmit={submitHandler}>
                     <div className="input-group">
                         <span>Email</span>
-                        <input name="username"></input>
+                        <input name="email"></input>
                     </div>
                     <div style={{marginTop: '1em'}} className="input-group">
                         <span>Username</span>
@@ -95,4 +122,4 @@ function Login () {
     )
 }
 
-export default Login
+export default SignUp
