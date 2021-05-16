@@ -50,6 +50,12 @@ class Event {
         db.query(queryText, [title, location, time_start, time_end, isVirtual, event_id]);
         return db.query('SELECT * FROM Events WHERE id = $1', [event_id]).then(results => results.rows[0]);
     }
+
+    static getEvent(event_id) {
+        const queryText = 'SELECT * FROM Events WHERE id = $1';
+
+        return db.query(queryText, [event_id]).then(results => results.rows[0]);
+    }
 }
 
 module.exports = {Event};

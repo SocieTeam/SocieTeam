@@ -5,6 +5,7 @@ import Login from './Login'
 // import SignUp from './SignUp'
 import Navbar from './Navbar'
 import NewEvent from './NewEvent'
+import Event from './Event'
 
 function App() {
 
@@ -26,6 +27,9 @@ function App() {
         </Route> */}
         <Route path={['/newEvent']}>
           <NewEvent />
+        </Route>
+        <Route exact path = {['/event/:id']}>
+          <Event />
         </Route>
       </Switch>
       <style jsx>{`

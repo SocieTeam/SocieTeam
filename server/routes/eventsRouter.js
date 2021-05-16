@@ -14,4 +14,8 @@ router.post('/:id/reserve', eventsController.reserveEvent);
 
 router.delete('/:id', eventsController.deleteEvent);
 
+//GET /events/:id
+
+router.get('/:id', eventsController.getEvent);
+
 module.exports = router;
