@@ -17,6 +17,18 @@ const createEvent = async (req, res) => {
     }
 }
 
+const getEvent = async(req, res) => {
+    const event_id = req.params.id;
+
+    try{
+        let event = await Event.getEvent(event_id);
+        res.status(200).json(event);
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+}
+
 const reserveEvent = async (req, res) => {
     let event_id = req.params.id;
     const user_id = '1'; //Temporary until session cookie is available
@@ -84,5 +96,6 @@ const editEvent = async (req, res) => {
 module.exports = {
     createEvent,
     reserveEvent,
-    deleteEvent
+    deleteEvent,
+    getEvent
 }

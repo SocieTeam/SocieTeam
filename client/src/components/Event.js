@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 
-function Event (props) {
+function Event () {
     
     const {id} = useParams();
     const [title, setTitle] = useState('')
@@ -10,6 +10,7 @@ function Event (props) {
     const [description, setDescription] = useState('')
     const [startDate, setDate] = useState('')
     const [endDate, setEnd] = useState('');
+    let virt = isVirtual ? 'Yes' : 'No'
 
 
     useEffect(() => {
@@ -33,8 +34,8 @@ function Event (props) {
                 <h2>Title:</h2><br></br>
                 <h3>{title}</h3><br></br>
                 
-                <h2>Is it a Virtual?</h2>
-                <h3>{isVirtual}</h3>
+                <h2>Is it a Virtual?</h2> 
+                <h3>{virt}</h3>
 
                 <h2>Start Date: </h2>
                 <h3>{startDate}</h3><br></br>
@@ -45,10 +46,8 @@ function Event (props) {
                 <h2>Location/Meeting Link</h2>
                 <h3>{location}</h3><br></br>
 
-                <h2>Event Description</h2>
-                <h3>{description}</h3><br></br>
-
-                <button type = 'submit'>Submit</button>
+                {/* <h2>Event Description</h2>
+                <h3>{description}</h3><br></br> */}
             
         </div>
     )
