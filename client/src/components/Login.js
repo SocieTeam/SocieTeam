@@ -29,10 +29,10 @@ function Login () {
         .then(res => res.json())
         .then(json => {
             if (json.responseType !== 'error') {
-                const verifiedUser = {user: json.username, token: json.token}
+                const verifiedUser = {user: json.user.username, token: json.token, userId: json.user.id}
                 localStorage.setItem('societeam-token', JSON.stringify(verifiedUser));
-                setLoggedUser(verifiedUser)
-               history.push('/')
+                setLoggedUser(json.user)
+               history.push('/account')
             } else {
                 setLoginError(true)
             }

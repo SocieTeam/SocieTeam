@@ -1,17 +1,41 @@
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Route, Switch, useHistory} from 'react-router-dom'
 import StateContext from './contexts/StateContext'
 import { useContext, useEffect } from 'react'
 import Login from './Login'
 import SignUp from './SignUp'
 import Navbar from './Navbar'
+import Profile from './Profile'
 
 function App() {
 
-  const { setNavbarLinks } = useContext(StateContext)
+  const history = useHistory()
+
+  const { setNavbarLinks, setLoggedUser } = useContext(StateContext)
 
   useEffect(() => {
     setNavbarLinks(['login', 'signup'])
-  }, [setNavbarLinks])
+    let token = localStorage.getItem('societeam-token')
+    if (token) {
+      token = JSON.parse(token)
+      const options = {
+        headers: {
+          authorization: `Bearer ${token.token}`
+        }
+      }
+      fetch(`${process.env.REACT_APP_API_URL}/users/${token.userId}`, options)
+      .then(res => {
+        if (res.ok) {
+          res.json().then(json => {
+            setLoggedUser(json)
+          })
+        } else {
+          history.push('/login')
+        }
+      })
+    } else {
+      history.push('/login')
+    }
+  }, [setNavbarLinks, setLoggedUser])
 
   return (
     <div className="App">
@@ -22,6 +46,9 @@ function App() {
         </Route>
         <Route path={['/signup']}>
           <SignUp />
+        </Route>
+        <Route path={['/account']}>
+          <Profile />
         </Route>
       </Switch>
       <style jsx>{`
