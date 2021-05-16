@@ -16,8 +16,8 @@ CREATE TABLE Events(
 	title TEXT,
 	user_id INT REFERENCES Users(id),
 	location TEXT,
-	time_start TEXT,
-	time_end TEXT,
+	time_start TIMESTAMP,
+	time_end TIMESTAMP,
 	isVirtual BOOLEAN
 );
 
