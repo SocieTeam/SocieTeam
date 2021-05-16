@@ -36,7 +36,7 @@ const getUsersReservations  = async (req, res) => {
     const userId = req.params.id;
     try {
         let user = await User.getUser(userId);
-        let reservations = await User.getUserReservations(userId);
+        let reservations = await User.getUsersReservations(userId);
         user.reservations = reservations;
         res.status(200).json(user);
     } catch (err) {
