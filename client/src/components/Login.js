@@ -26,13 +26,14 @@ function Login () {
         }
 
         fetch(`${process.env.REACT_APP_API_URL}/users/login`, options)
-        .then(res => res.json())
-        .then(json => {
-            if (json.responseType !== 'error') {
-                const verifiedUser = {user: json.user.username, token: json.token, userId: json.user.id}
-                localStorage.setItem('societeam-token', JSON.stringify(verifiedUser));
-                setLoggedUser(json.user)
-               history.push('/account')
+        .then(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    const verifiedUser = {user: json.user.username, token: json.token, userId: json.user.id}
+                    localStorage.setItem('societeam-token', JSON.stringify(verifiedUser))
+                    setLoggedUser(json.user)
+                    history.push('/account')
+                })
             } else {
                 setLoginError(true)
             }
