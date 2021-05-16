@@ -2,9 +2,11 @@ import {Route, Switch, useHistory} from 'react-router-dom'
 import StateContext from './contexts/StateContext'
 import { useContext, useEffect } from 'react'
 import Login from './Login'
-import SignUp from './SignUp'
+// import SignUp from './SignUp'
 import Navbar from './Navbar'
 import Profile from './Profile'
+import NewEvent from './NewEvent'
+
 
 function App() {
 
@@ -44,8 +46,11 @@ function App() {
         <Route path={['/login']}>
           <Login />
         </Route>
-        <Route path={['/signup']}>
+        {/* <Route path={['/signup']}>
           <SignUp />
+        </Route> */}
+        <Route path={['/newEvent']}>
+          <NewEvent />
         </Route>
         <Route path={['/account']}>
           <Profile />
