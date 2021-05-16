@@ -1,27 +1,7 @@
 const { User } = require('../models/User');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-
-// Creates custom errors that can be thrown, but also have details that can help later.
-// NOTE: the [type] property codes are being documented in the README.md at the root of the server directory.
-function CustomError (description, responseCode, type) {
-    this.responseType = 'error'
-    this.description = description
-    this.responseCode = responseCode
-    this.errorCode = type
-}
-CustomError = CustomError.bind(new Error())
-
-// DRYs up the catch blocks
-function errorHandler (res, error) {
-    if (error instanceof CustomError) {
-        res.status(error.responseCode).send(error)
-    } else if (error instanceof Error){
-        res.status(500).send(error.message)
-    } else {
-        res.status(500).send(error)
-    }
-}
+const {CustomError, errorHandler} = require('../middlewares/errors')
 
 // Gets a user by id
 const getUser = async (req, res) => {
@@ -68,17 +48,21 @@ const getUsersReservations  = async (req, res) => {
 const createUser = async (req, res) => {
     const user = req.body;
     try {
-        const emailExists = await User.findUserByEmail(email)
-        if (emailExists) throw new CustomError(`${email} already exists`, 400, 1)
+        const emailExists = await User.findUserByEmail(user.email)
+        if (emailExists) throw new CustomError(`${user.email} already exists`, 400, 1)
 
-        const usernameExists = await User.findUserByUsername(username)
-        if (usernameExists) throw new CustomError(`${username} already exists`, 400, 2)
+        const usernameExists = await User.findUserByUsername(user.username)
+        if (usernameExists) throw new CustomError(`${user.username} already exists`, 400, 2)
 
         const hash = await bcrypt.hash(user.password, 10);
         user.password = hash
         const userInfo = await User.createUser(user);
         const token = jwt.sign({userId: userInfo.id}, process.env.JWT_KEY, {expiresIn: 60 * 30})
-        res.status(200).json({username: userInfo.username, responseType: 'success', message: 'Account Creation Successful', token});
+        res.status(200).json({
+            user: userInfo,
+            message: 'Account Creation Successful',
+            token
+        });
     } catch (err) {
         errorHandler(res, err)
     }
@@ -87,10 +71,14 @@ const createUser = async (req, res) => {
 // updateUser
 const updateUser = async (req, res) => {
     const userId = req.params.id;
-    const updatedUser = Object.assign(req.user, req.body);
     try {
-        const user = await User.updateUser(userId, updatedUser);
-        res.status(200).json(user);
+        const user = await User.getUser(userId);
+        if (req.body.username) {
+            const usernameExists = await User.findUserByUsername(req.body.username)
+            if (usernameExists) throw new CustomError(`${user.username} already exists`, 400, 2)
+        }
+        const updatedUser = await User.updateUser(userId, Object.assign(user, req.body));
+        res.status(200).json({message: 'User Updated Successfully', user: updatedUser });
     } catch (err) {
         errorHandler(res, err)
     }
@@ -108,7 +96,11 @@ const login = async (req, res) => {
             const successfulAuth = await bcrypt.compare(credentials.password, identity.password)
             if (successfulAuth) {
                 const token = jwt.sign({userId: identity.id}, process.env.JWT_KEY, {expiresIn: 60 * 30})
-                res.status(200).json({username: identity.username, responseType: 'success', message: 'Login Successful', token});
+                res.status(200).json({
+                    user: identity,
+                    message: 'Login Successful',
+                    token
+                });
             } else {
                 throw new CustomError('Invalid credentials', 401, 4)
             }

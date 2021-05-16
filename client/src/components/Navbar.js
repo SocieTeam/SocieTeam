@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function Navbar () {
 
     const { navbarLinks, loggedUser } = useContext(StateContext)
-
+    
     const linkMap = {
         login: {
             route: '/login',
@@ -42,7 +42,7 @@ function Navbar () {
                  </div>
                 { loggedUser ? 
                     <div className="logged-user">
-                        <span>{ loggedUser.user }</span>
+                        <span>{ loggedUser.username }</span>
                     </div> : null
                 }
             </div>
