@@ -11,7 +11,7 @@ function EventFeed() {
         fetch('http://localhost:5000/users/1/reservations') //for now only getting reservations from user id = 1
         .then(results => results.json())
         .then(data => {
-            setRes(data.reservations)
+            setRes(data.reservations);
         });
 
         fetch('http://localhost:5000/events')
@@ -19,7 +19,7 @@ function EventFeed() {
         .then(data => {
             setEvents(data);
         })
-    })
+    }, [])
 
     return (
         <div>
