@@ -17,9 +17,9 @@ class User {
         const queryText = 'SELECT * FROM Events WHERE user_id = $1;';
         return db.query(queryText, [id]).then(results => results.rows);
     }
-    static getUsersReservations(id, eventID){
-        const queryText = 'SELECT user_id, event_id FROM Reservations WHERE user_id = $1 AND WHERE event_id = $2;';
-        return db.query(queryText, [id,eventID]).then(results => results.rows);
+    static getUsersReservations(id){
+        const queryText = 'SELECT * FROM Reservations, Events WHERE Reservations.user_id = $1 AND Reservations.event_id = Events.id';
+        return db.query(queryText, [id]).then(results => results.rows);
     }
     static createUser(user){
         const {email, username, password} = user;
