@@ -28,32 +28,158 @@ function NewEvent () {
 
 
     return (
-        <div>
-            <img src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/SunsetPark.jpg/290px-SunsetPark.jpg' alt='park'></img>
-            <form onSubmit = {eventSubmit}>
-                <label for='title'>Title:</label><br></br>
-                <input type='text' id = 'title' placeholder = 'Ex: Cyber Security Talk' value = {title} onChange = {(e)=>setTitle(e.target.value)}></input><br></br>
+        <div className="top-level">
+            <div className="title-banner">
+                <h1 className="title">New Event</h1>
+                <hr/>
+            </div>
+            <div className="image-banner">
+                <img src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/SunsetPark.jpg/290px-SunsetPark.jpg' alt='park'></img>
+            </div>
+            <form className="new-event-form" onSubmit={eventSubmit}>
+                <div className="new-event-input-group">
+                    <span className="new-event-input-label">Event Title</span>
+                    <input 
+                    type='text'
+                    placeholder='Ex: Cyber Security Talk'
+                    value = {title} 
+                    onChange = {(e)=>setTitle(e.target.value)}
+                    />
+                    <hr/>
+                </div>
                 
-                <p>Is it a Virtual?</p>
-                <input type="radio" id="isVirtual" name="isVirtual" value="true" onChange = {()=>setVirtual(true)}></input>
-                <label for = 'isVirtual'>Yes</label>
-                <input type="radio" id="isVirtual" name="isVirtual" value="false" onChange = {()=>setVirtual(false)}></input>
-                <label for = 'isVirtual'>No</label><br></br>
+                <div className="event-type">
+                    <span className="new-event-input-label">Event Type</span>
+                    <div className="event-type-buttons">
+                        <div className={`type-button ${isVirtual ? '' : 'active-button'}`} onClick={()=>setVirtual(false)}>In-Person</div>
+                        <div className={`type-button ${isVirtual ? 'active-button' : ''}`} onClick={()=>setVirtual(true)}>Virtual</div>
+                    </div>
+                </div>
+                <div className="dates">
+                    <div className="new-event-date-group">
+                        <span className="new-event-input-label">Start Date & Time</span>
+                        <input type='datetime-local' onChange={(e)=> setDate(e.target.value)}/>
+                    </div>
+                    <div className="new-event-date-group">
+                        <span className="new-event-input-label">End Date & Time</span>
+                        <input type='datetime-local' name='dateEnd' onChange={(e)=> setEnd(e.target.value)}/>
+                    </div>
+                </div>
+                <hr style={{width: '100%'}}/>
+                <div className="new-event-input-group">
+                    <label for='location'>Location/Meeting Link</label>
+                    <input
+                    type='text'
+                    name='location'
+                    placeholder='1234 A BLVD'
+                    value={location}
+                    onChange={(e)=>setLocation(e.target.value)}/>
+                    <hr/>
+                </div>
 
-                <label for = 'dateStart'>Start Date: </label>
-                <input type = 'datetime-local' id = 'dateStart' onChange = {(e)=> setDate(e.target.value)}></input><br></br>
+                <div className="new-event-input-group">
+                    <label for = 'description'>Event Description</label>
+                    <textarea name='description'
+                    value={description}
+                    onChange={(e)=>setDescription(e.target.value)}
+                    rows='5'></textarea>
+                </div>
 
-                <label for = 'dateEnd'>End Date: </label>
-                <input type = 'datetime-local' name = 'dateEnd' onChange = {(e)=> setEnd(e.target.value)}></input><br></br>
-
-                <label for='location'>Location/Meeting Link</label>
-                <input type = 'text' id='location' name = 'location' placeholder = '1234 A BLVD' value = {location} onChange = {(e)=>setLocation(e.target.value)}></input><br></br>
-
-                <label for = 'description'>Event Description</label>
-                <textarea id = 'description' name = 'description' value = {description} onChange = {(e)=>setDescription(e.target.value)}></textarea><br></br>
-
-                <button type = 'submit'>Submit</button>
+                <button className="submit-button" type='submit'>Create Event</button>
             </form>
+            <style jsx>{`
+                .top-level {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    flex: 1;
+                }
+                .title-banner {
+                    margin-top: 2em;
+                }
+                .title-banner h1 {
+                    margin: 0
+                }
+                .image-banner {
+                    height: 15em;
+                    width: 100%;
+                }
+                .image-banner img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+                .new-event-form {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: calc(100% - 2em);
+                    flex: 1;
+                    padding: 1em;
+                }
+                .new-event-input-group {
+                    width: 100%;
+                    margin-top: 1.5em;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .new-event-input-group input {
+                    border: 0px;
+                    height: 2.5em;
+                }
+                .new-event-input-group hr {
+                    margin-top: 0;
+                    width: 100%;
+                }
+                .new-event-input-group textarea {
+                    border-radius: 5px;
+                }
+                .dates {
+                    margin-top: 1.5em;
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+                .new-event-date-group {
+                    display: flex;
+                    flex-direction: column;
+                    width: 45%;
+                }
+                .new-event-date-group input {
+                    width: 100%;
+                }
+                .event-type {
+                    width: 100%;
+                    margin-top: 1.5em;
+                }
+                .event-type-buttons {
+                    height: 2.5em;
+                    display: flex;
+                    border: 1px solid black;
+                    background-color: white;
+                    color: black;
+                }
+                .active-button {
+                    background-color: black;
+                    color: white;
+                }
+                .type-button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex: 1;
+                }
+                .submit-button {
+                    margin-top: 1.5em;
+                    width: 50%;
+                    height: 3em;
+                    background-color: black;
+                    color: white;
+                    border-radius: 10px;
+                    font-size: 1em;
+                }
+            `}</style>
         </div>
     )
 } 
