@@ -54,6 +54,7 @@ function Navbar () {
                     background-color: black;
                     color: white;
                     padding: 0 1em;
+                    border-bottom: 0.25em solid white;
                 }
                 .nav-link {
                     display: flex;
