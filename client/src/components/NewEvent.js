@@ -1,6 +1,13 @@
-import {useState} from 'react';
+import StateContext from './contexts/StateContext'
+import { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom'
 
 function NewEvent () {
+
+    const { loggedUser } = useContext(StateContext)
+
+    const history = useHistory()
+
     const [title, setTitle] = useState('')
     const [isVirtual, setVirtual] = useState(false)
     const [location, setLocation] = useState('')
@@ -11,6 +18,7 @@ function NewEvent () {
     function eventSubmit (e) {
         e.preventDefault();
         let obj = {
+            userId: loggedUser.id,
             title,
             isVirtual,
             location,
@@ -19,10 +27,25 @@ function NewEvent () {
             time_end: new Date(endDate)
         }
 
-        fetch('http://localhost:5000/events/new', {
+        const token = JSON.stringify(localStorage.getItem('societeam-token')).token
+        const options = {
+            headers: {
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(obj)
+        }
+
+        fetch(`${process.env.REACT_APP_API_URL}/events/new`, options)
+        .then(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    history.push('/event-manager')
+                })
+            } else {
+                console.log(res)
+            }
         })
     }
 

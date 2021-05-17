@@ -7,16 +7,18 @@ import Navbar from './Navbar'
 import Profile from './Profile'
 import NewEvent from './NewEvent'
 import Event from './Event'
+import Home from './Home'
 
+import EventManager from './EventManager'
+import EventFeed from './EventsFeed';
 
 function App() {
 
-  const history = useHistory()
+   const history = useHistory()
 
-  const { setNavbarLinks, setLoggedUser } = useContext(StateContext)
+   const { setNavbarLinks, setLoggedUser } = useContext(StateContext)
 
   useEffect(() => {
-    setNavbarLinks(['login', 'signup'])
     let token = localStorage.getItem('societeam-token')
     if (token) {
       token = JSON.parse(token)
@@ -32,11 +34,11 @@ function App() {
             setLoggedUser(json)
           })
         } else {
-          history.push('/login')
+          history.push('/')
         }
       })
     } else {
-      history.push('/login')
+      history.push('/')
     }
   }, [setNavbarLinks, setLoggedUser])
 
@@ -44,6 +46,9 @@ function App() {
     <div className="App">
       <Navbar/>
       <Switch>
+        <Route exact path={['/']}>
+          <Home />
+        </Route>
         <Route path={['/login']}>
           <Login />
         </Route>
@@ -56,8 +61,14 @@ function App() {
         <Route path={['/account']}>
           <Profile />
         </Route>
+        <Route path = {['/eventsfeed']}>
+          <EventFeed />
+        </Route>
         <Route exact path = {['/event/:id']}>
           <Event />
+        </Route>
+        <Route path={['/event-manager']}>
+          <EventManager />
         </Route>
       </Switch>
       <style jsx>{`

@@ -18,4 +18,8 @@ router.delete('/:id', eventsController.deleteEvent);
 
 router.get('/:id', eventsController.getEvent);
 
+//GET /events
+
+router.get('/', eventsController.getEvents);
+
 module.exports = router;
