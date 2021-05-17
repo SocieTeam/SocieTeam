@@ -1,8 +1,10 @@
 import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
-// import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 function SignUp () {
+
+    const history = useHistory()
 
     const { setNavbarLinks } = useContext(StateContext)
 
@@ -23,7 +25,9 @@ function SignUp () {
         }
         fetch(`${process.env.REACT_APP_API_URL}/users/newUser`, options)
         .then(res => res.json())
-        .then(json => {console.log(json)})
+        .then(json => {
+            history.push('/account')
+        })
     }
 
     function changeHandler (e) {
