@@ -58,6 +58,7 @@ function Navbar () {
                     background-color: black;
                     color: white;
                     padding: 0 1em;
+                    border-bottom: 0.25em solid white;
                 }
                 .logo-banner h1 {
                     font-size: 1em;
