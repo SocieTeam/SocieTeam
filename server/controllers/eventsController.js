@@ -29,6 +29,16 @@ const getEvent = async(req, res) => {
     }
 }
 
+const getEvents = async (req, res) => {
+    try {
+        let events = await Event.getEvents();
+        res.json(events);
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+}
+
 const reserveEvent = async (req, res) => {
     let event_id = req.params.id;
     const user_id  = req.body.userId
@@ -97,5 +107,6 @@ module.exports = {
     createEvent,
     reserveEvent,
     deleteEvent,
-    getEvent
+    getEvent,
+    getEvents
 }

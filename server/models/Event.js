@@ -56,6 +56,10 @@ class Event {
 
         return db.query(queryText, [event_id]).then(results => results.rows[0]);
     }
+
+    static getEvents() {
+        return db.query('SELECT * FROM Events').then(results => results.rows);
+    }
 }
 
 module.exports = {Event};
