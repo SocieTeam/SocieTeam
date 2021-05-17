@@ -13,13 +13,13 @@ class User {
         const queryText = 'SELECT * FROM Users WHERE email = $1;'
         return db.query(queryText, [email]).then(results => results.rows[0]);
     }
-    static getUsersEvent(id){
+    static getUserEvents(id){
         const queryText = 'SELECT * FROM Events WHERE user_id = $1;';
         return db.query(queryText, [id]).then(results => results.rows);
     }
-    static getUsersReservations(id, eventID){
-        const queryText = 'SELECT user_id, event_id FROM Reservations WHERE user_id = $1 AND WHERE event_id = $2;';
-        return db.query(queryText, [id,eventID]).then(results => results.rows);
+    static getUserReservations(id){
+        const queryText = 'SELECT title, username, location, time_start, time_end, isvirtual, Events.id FROM Events JOIN Reservations ON Reservations.event_id = Events.id JOIN Users ON Users.id = Events.user_id WHERE Reservations.user_id = $1';
+        return db.query(queryText, [id]).then(results => results.rows);
     }
     static createUser(user){
         const {email, username, password} = user;

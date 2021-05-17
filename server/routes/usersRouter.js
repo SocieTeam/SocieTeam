@@ -7,10 +7,10 @@ const auth = require('../middlewares/jwtAuth')
 router.get('/:id', auth, userController.getUser);
 
 // GET : /users/:id/events
-router.get('/:id/events', userController.getUsersEvents);
+router.get('/:id/events', userController.getUserEvents);
 
 // GET: /users/:id/reservations
-router.get('/:id/reservations', userController.getUsersReservations);
+router.get('/:id/reservations', userController.getUserReservations);
 
 // POST: /users/newUser
 router.post('/newUser', userController.createUser);

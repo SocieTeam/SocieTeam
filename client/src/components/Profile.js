@@ -11,6 +11,9 @@ function Profile () {
     const [zip, setZip] = useState('')
 
     useEffect(() => {
+
+        setNavbarLinks(['eventManager'])
+
         if (loggedUser) {
             setUsername(loggedUser.username)
             setEmail(loggedUser.email)
@@ -159,6 +162,7 @@ function Profile () {
 
             <section className="actions">
                 <h2>Actions</h2>
+                <button>Logout</button>
                 <button disabled>Reset Password</button>
                 <button disabled>Delete Account</button>
             </section>
@@ -182,7 +186,7 @@ function Profile () {
                 }
                 .title h1 {
                     margin: 0;
-                    font-size: 1.3em;
+                    font-size: 1.2em;
                 }
                 .avatar {
                     width: 4em;
