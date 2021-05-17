@@ -14,6 +14,10 @@ function Navbar () {
         signup: {
             route: '/signup',
             name: 'Sign Up'
+        },
+        eventManager: {
+            route: '/event-manager',
+            name: 'Event Manager'
         }
     }
     
@@ -42,7 +46,7 @@ function Navbar () {
                  </div>
                 { loggedUser ? 
                     <div className="logged-user">
-                        <span>{ loggedUser.username }</span>
+                        <Link to='/account'><span>{ loggedUser.username }</span></Link>
                     </div> : null
                 }
             </div>
@@ -55,18 +59,29 @@ function Navbar () {
                     color: white;
                     padding: 0 1em;
                 }
+                .logo-banner h1 {
+                    font-size: 1em;
+                }
                 .nav-link {
                     display: flex;
                     justify-content: center;
-                    width: 4em;
+                    margin-left: 1em;
                 }
                 .links-and-user {
                     display: flex;
+                    font-size: 0.5em;
                 }
                 .links-section {
                     display: flex;
                 }
                 .links-section a {
+                    text-decoration: none;
+                    color: white;
+                }
+                .logged-user {
+                    margin-left: 1em;
+                }
+                .logged-user a {
                     text-decoration: none;
                     color: white;
                 }

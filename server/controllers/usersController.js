@@ -19,26 +19,24 @@ const getUser = async (req, res) => {
 }
 
 // Gets events for a user by their user id 
-const getUsersEvents = async (req, res) => {
+const getUserEvents = async (req, res) => {
     const userId = req.params.id;
     try {
-        let user = await User.getUser(userId);
-        let event = await User.getUsersEvent(userId);
-        user.event = event;
-        res.status(200).json(user);
+        await User.getUser(userId);
+        let events = await User.getUserEvents(userId);
+        res.status(200).json({userId, events});
     } catch (err) {
         errorHandler(res, err)
     }
 }
 
 // Gets reservations for a user by their user id 
-const getUsersReservations  = async (req, res) => {
+const getUserReservations  = async (req, res) => {
     const userId = req.params.id;
     try {
-        let user = await User.getUser(userId);
-        let reservations = await User.getUsersReservations(userId);
-        user.reservations = reservations;
-        res.status(200).json(user);
+        await User.getUser(userId);
+        let reservations = await User.getUserReservations(userId);
+        res.status(200).json({userId, reservations});
     } catch (err) {
         errorHandler(res, err)
     }
@@ -113,8 +111,8 @@ const login = async (req, res) => {
 
 module.exports = {
     getUser,
-    getUsersEvents,
-    getUsersReservations,
+    getUserEvents,
+    getUserReservations,
     createUser,
     updateUser,
     login

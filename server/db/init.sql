@@ -22,6 +22,7 @@ CREATE TABLE Events(
 );
 
 CREATE TABLE Reservations(
+	id SERIAL PRIMARY KEY,
 	user_id INT REFERENCES Users(id),
 	event_id INT REFERENCES Events(id)
 );

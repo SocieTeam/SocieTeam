@@ -7,8 +7,8 @@ import Navbar from './Navbar'
 import Profile from './Profile'
 import NewEvent from './NewEvent'
 import Event from './Event'
+import EventManager from './EventManager'
 import EventFeed from './EventsFeed';
-
 
 function App() {
 
@@ -62,6 +62,9 @@ function App() {
         </Route>
         <Route exact path = {['/event/:id']}>
           <Event />
+        </Route>
+        <Route path={['/event-manager']}>
+          <EventManager />
         </Route>
       </Switch>
       <style jsx>{`
