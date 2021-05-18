@@ -27,7 +27,7 @@ function EventFeed() {
     }, [])
 
     return (
-        <div>
+        <div className="top-level">
             <h1>Reservations</h1>
             <div>
                 {reservations.map(event => <ReservationCard event = {event}/>)}
@@ -36,6 +36,14 @@ function EventFeed() {
             <div>
                 {events.map(event => <OtherEventCard event = {event}/>)}
             </div>
+            <style jsx>{`
+                .top-level {
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: scroll;
+                    height: 100%;
+                }
+            `}</style>
         </div>
     )
 }
