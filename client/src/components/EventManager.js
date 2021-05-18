@@ -50,7 +50,7 @@ function EventManager () {
                 <hr/>
             </div>
             <div className="new-event-button">
-                <Link to='/newEvent'>
+                <Link className="link" to='/newEvent'>
                     <div className="new-event-inner">New Event +</div>
                 </Link>
             </div>
@@ -66,16 +66,16 @@ function EventManager () {
                     >My Events</div>
                 </div>
                 <div 
-                style={{display: activeTab === 'reservations' ? 'flex' : 'none'}} 
-                className="pane reservations-pane"
+                // style={{visibility: activeTab === 'reservations' ? 'flex' : 'none'}} 
+                className={`pane reservations-pane ${activeTab === 'reservations' ? '' : 'hidden'}`}
                 >
                     {
                         reservedEvents.map(event => <EventManagerCard key={event.id} eventType="reservation" event={event}/>)
                     }
                 </div>
                 <div 
-                style={{display: activeTab === 'user-events' ? 'flex' : 'none'}}
-                className="pane user-events-pane"
+                // style={{visibility: activeTab === 'user-events' ? 'flex' : 'none'}}
+                className={`pane user-events-pane ${activeTab === 'user-events' ? '' : 'hidden'}`}
                 >
                     {
                         userEvents.map(event => <EventManagerCard key={event.id} eventType="user-event" event={event}/>)
@@ -89,6 +89,7 @@ function EventManager () {
                     align-items: center;
                     height: 100%;
                     padding: 5%;
+                    overflow-y: hidden;
                 }
                 .title-banner h1 {
                     margin: 0;
@@ -101,6 +102,7 @@ function EventManager () {
                     align-items: center;
                     border: 1px solid black;
                     margin-top: 1em;
+                    overflow-y: hidden;
                 }
                 .event-tabs {
                     display: flex;
@@ -135,9 +137,14 @@ function EventManager () {
                     border-radius: 5px;
                     border: 1px solid black;
                 }
-                .new-event-inner:hover{
+                .new-event-inner :hover{
                     color: black;
                     background-color: white;
+                }
+                .hidden {
+                    position: absolute;
+                    visibility: hidden;
+                    overflow-y: hidden;
                 }
             `}</style>
         </div>

@@ -47,9 +47,10 @@ function EventManagerCard (props) {
             </div>
             <style jsx>{`
                 .event-card {
+                    visibility: inherit;
                     display: flex;
                     align-items: center;
-                    height: calc(25% - 0.5em);
+                    height: 10em;
                     width: calc(100% - 1em);
                     margin: 0.5em 0.5em 0 0.5em;
                     border: 1px solid black;

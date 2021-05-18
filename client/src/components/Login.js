@@ -69,7 +69,7 @@ function Login () {
                     <button style={{marginTop: '3em'}} type="submit">LOGIN</button>
                 </form>
                 <div style={{marginTop: '2em'}} className='register-link'>
-                    <Link to='/register'>Don't Have An Account?<br/>Sign Up Here!</Link>
+                    <Link style={{textDecoration: 'underline'}}className="link" to='/register'>Don't Have An Account?<br/>Sign Up Here!</Link>
                 </div>
             </div>
 

@@ -36,7 +36,8 @@ function Navbar () {
                         navbarLinks.map(link => {
                             return (
                             <Link
-                        
+                            
+                            className="link"
                             to={ linkMap[link].route }
                             key={ link }
                             >
@@ -50,7 +51,7 @@ function Navbar () {
                  </div>
                 { loggedUser ? 
                     <div className="logged-user">
-                        <Link to='/account'><span>{ loggedUser.username }</span></Link>
+                        <Link className="link" to='/account'><span>{ loggedUser.username }</span></Link>
                     </div> : null
                 }
             </div>
@@ -79,16 +80,8 @@ function Navbar () {
                 .links-section {
                     display: flex;
                 }
-                .links-section a {
-                    text-decoration: none;
-                    color: white;
-                }
                 .logged-user {
                     margin-left: 1em;
-                }
-                .logged-user a {
-                    text-decoration: none;
-                    color: white;
                 }
             `}</style>
         </nav>
