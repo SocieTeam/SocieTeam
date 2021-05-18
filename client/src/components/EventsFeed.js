@@ -1,14 +1,15 @@
+import StateContext from './contexts/StateContext'
 import ReservationCard from './cards/reservationCard';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import OtherEventCard from './cards/otherEventsCard';
 
 function EventFeed() {
-
+    const { loggedUser } = useContext(StateContext);
     const [reservations, setRes] = useState([]);
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/users/1/reservations') //for now only getting reservations from user id = 1
+        fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}/reservations`)
         .then(results => results.json())
         .then(data => {
             setRes(data.reservations);
