@@ -1,6 +1,7 @@
 import StateContext from './contexts/StateContext'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import icon from '../assets/images/user.svg'
 
 function Navbar () {
 
@@ -53,7 +54,7 @@ function Navbar () {
                     <div className="logged-user">
                         <Link className="link" to='/account'>
                             <div className="user-avatar">
-                                <img style={{width: '50%'}} src={loggedUser.profile_pic ? loggedUser.profile_pic : './user.svg'}/>
+                                <img style={{width: '50%'}} src={loggedUser.profile_pic ? loggedUser.profile_pic : icon}/>
                             </div>
                         </Link>
                     </div> : null

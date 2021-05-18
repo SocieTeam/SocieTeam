@@ -1,4 +1,6 @@
 import { useHistory } from 'react-router-dom';
+import close from '../assets/images/close.svg'
+import edit from '../assets/images/edit.svg'
 
 function EventManagerCard (props) {
 
@@ -38,11 +40,11 @@ function EventManagerCard (props) {
                 {
                     eventType === 'user-event' ?
                     <>
-                        <div className="option-icon"><img src="./edit.svg"></img></div>
-                        <div className="option-icon"><img src="./close.svg"></img></div>
+                        <div className="option-icon"><img src={edit}></img></div>
+                        <div className="option-icon"><img src={close}></img></div>
                     </>
                     :
-                    <div className="option-icon"><img src="./close.svg"></img></div>
+                    <div className="option-icon"><img src={close}></img></div>
                 } 
             </div>
             <style jsx>{`

@@ -1,8 +1,14 @@
-import {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import { useState, useEffect} from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import clock from '../assets/images/clock.svg'
+import back from '../assets/images/back.svg'
+import video from '../assets/images/video.svg'
+import location from '../assets/images/location.svg'
+import edit from '../assets/images/edit.svg'
 
 function Event () {
-    
+
+    const history = useHistory()
     const { id } = useParams();
     const [event, setEvent] = useState({})
 
@@ -17,6 +23,7 @@ function Event () {
 
     return (
         <div className="top-level">
+            <div className="back-button" onClick={() => {history.goBack()}}><img src={back}/><span>Back</span></div>
             <div className="image-banner">
                 <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/SunsetPark.jpg/290px-SunsetPark.jpg' alt='park'></img>
             </div>
@@ -24,7 +31,7 @@ function Event () {
                 <h2 className="title">{event.title}</h2>
                 <div className="info-wrapper">
                     <div className="label-wrapper">
-                        <img className="icon" src="../clock.svg"/>
+                        <img className="icon" src={clock}/>
                         <span className="info-label">Start Date</span>
                     </div>
                     <span className="date">{`${new Date(event.time_start).toLocaleDateString()}`}</span>
@@ -32,7 +39,7 @@ function Event () {
                 </div>
                 <div className="info-wrapper">
                     <div className="label-wrapper">
-                        <img className="icon" src="../clock.svg"/>
+                        <img className="icon" src={clock}/>
                         <span className="info-label">End Date</span>
                     </div>
                     <span className="date">{`${new Date(event.time_end).toLocaleDateString()}`}</span>
@@ -40,17 +47,17 @@ function Event () {
                 </div>
                 <div className="info-wrapper">
                     <div className="label-wrapper">
-                        <img className="icon" src={event.isvirtual ? '../video.svg' : '../location.svg'}/>
+                        <img className="icon" src={event.isvirtual ? video : location}/>
                         <span className="info-label">{event.isvirtual ? 'Virtual Event' : 'In-Person Event'}</span>
                     </div>
                     <span className="location">{event.location}</span>
                 </div>
                 <div className="info-wrapper">
                     <div className="label-wrapper">
-                        <img className="icon" src="../edit.svg"/>
+                        <img className="icon" src={edit}/>
                         <span className="info-label">Description</span>
                     </div>
-                    <span className="desciption">{event.description ? event.description : <i>The event organizer did not include a description.</i>}</span>
+                    <span className="description">{event.description ? event.description : <i>The event organizer did not include a description.</i>}</span>
                 </div>
             </section>
             
@@ -96,6 +103,22 @@ function Event () {
                 }
                 .info-label {
                     margin-left: 0.5em;
+                }
+                .back-button {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: 1em;
+                    line-height: 1px;
+                    width: 4em;
+                    padding: 0.25em;
+                    justify-content: space-evenly;
+                    border: 1px solid black;
+                    border-radius: 5px;
+                    margin: 0.5em;
+                }
+                .back-button img {
+                    height: 100%;
                 }
             `}</style>
         </div>
