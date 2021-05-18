@@ -12,7 +12,7 @@ function EventManager () {
     const [userEvents, setUserEvents] = useState([])
 
     useEffect(() => {
-        setNavbarLinks(['eventManager'])
+        setNavbarLinks(['eventManager', 'eventsFeed'])
         if (!loggedUser) return
 
         const token = JSON.stringify(localStorage.getItem('societeam-token')).token

@@ -18,6 +18,10 @@ function Navbar () {
         eventManager: {
             route: '/event-manager',
             name: 'Event Manager'
+        },
+        eventsFeed: {
+            route: '/eventsFeed',
+            name: 'Event Feed'
         }
     }
     
