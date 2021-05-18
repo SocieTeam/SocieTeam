@@ -1,11 +1,19 @@
+import { useHistory } from 'react-router-dom';
+
 function EventManagerCard (props) {
+
+    const history = useHistory()
 
     const { event, eventType } = props
 
+    function eventClickHandler () {
+        history.push(`/event/${event.id}`)
+    }
+
     return (
         <div className="event-card">
-            <div className="card-image"></div>
-            <div className="card-info">
+            <div onClick={eventClickHandler} className="card-image"></div>
+            <div onClick={eventClickHandler} className="card-info">
                 <span className="event-title">{ event.title }</span>
                 <div className="event-info">
                 {
