@@ -51,7 +51,11 @@ function Navbar () {
                  </div>
                 { loggedUser ? 
                     <div className="logged-user">
-                        <Link className="link" to='/account'><span>{ loggedUser.username }</span></Link>
+                        <Link className="link" to='/account'>
+                            <div className="user-avatar">
+                                <img style={{width: '50%'}} src={loggedUser.profile_pic ? loggedUser.profile_pic : './user.svg'}/>
+                            </div>
+                        </Link>
                     </div> : null
                 }
             </div>
@@ -75,6 +79,7 @@ function Navbar () {
                 }
                 .links-and-user {
                     display: flex;
+                    align-items: center;
                     font-size: 0.5em;
                 }
                 .links-section {
@@ -82,6 +87,15 @@ function Navbar () {
                 }
                 .logged-user {
                     margin-left: 1em;
+                }
+                .user-avatar {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 2em;
+                    height: 2em;
+                    border-radius: 1.5em;
+                    background-color: lightgrey;
                 }
             `}</style>
         </nav>
