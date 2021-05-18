@@ -117,6 +117,7 @@ function NewEvent () {
                     align-items: center;
                     width: 100%;
                     flex: 1;
+                    overflow-y: scroll;
                 }
                 .title-banner {
                     margin-top: 2em;

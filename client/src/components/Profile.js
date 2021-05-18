@@ -2,6 +2,7 @@ import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
 
 function Profile () {
+
     const { setLoggedUser, loggedUser, setNavbarLinks } = useContext(StateContext)
     
     const [usernameEdit, setUsernameEdit] = useState(false)
@@ -12,7 +13,7 @@ function Profile () {
 
     useEffect(() => {
 
-        setNavbarLinks(['eventManager'])
+        setNavbarLinks(['eventManager', 'eventsFeed'])
 
         if (loggedUser) {
             setUsername(loggedUser.username)
@@ -100,6 +101,11 @@ function Profile () {
         }
     }
 
+    function logoutHandler () {
+        localStorage.removeItem('societeam-token')
+        window.location.reload()
+    }
+
     return (
         <div className="top-level">
             <div className="title-and-avatar">
@@ -162,7 +168,7 @@ function Profile () {
 
             <section className="actions">
                 <h2>Actions</h2>
-                <button>Logout</button>
+                <button onClick={logoutHandler}>Logout</button>
                 <button disabled>Reset Password</button>
                 <button disabled>Delete Account</button>
             </section>
