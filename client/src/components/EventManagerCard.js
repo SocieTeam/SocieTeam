@@ -1,11 +1,21 @@
+import { useHistory } from 'react-router-dom';
+import close from '../assets/images/close.svg'
+import edit from '../assets/images/edit.svg'
+
 function EventManagerCard (props) {
+
+    const history = useHistory()
 
     const { event, eventType } = props
 
+    function eventClickHandler () {
+        history.push(`/event/${event.id}`)
+    }
+
     return (
         <div className="event-card">
-            <div className="card-image"></div>
-            <div className="card-info">
+            <div onClick={eventClickHandler} className="card-image"></div>
+            <div onClick={eventClickHandler} className="card-info">
                 <span className="event-title">{ event.title }</span>
                 <div className="event-info">
                 {
@@ -30,18 +40,19 @@ function EventManagerCard (props) {
                 {
                     eventType === 'user-event' ?
                     <>
-                        <div className="option-icon"><img src="./edit.svg"></img></div>
-                        <div className="option-icon"><img src="./close.svg"></img></div>
+                        <div className="option-icon"><img src={edit}></img></div>
+                        <div className="option-icon"><img src={close}></img></div>
                     </>
                     :
-                    <div className="option-icon"><img src="./close.svg"></img></div>
+                    <div className="option-icon"><img src={close}></img></div>
                 } 
             </div>
             <style jsx>{`
                 .event-card {
+                    visibility: inherit;
                     display: flex;
                     align-items: center;
-                    height: calc(25% - 0.5em);
+                    height: 10em;
                     width: calc(100% - 1em);
                     margin: 0.5em 0.5em 0 0.5em;
                     border: 1px solid black;

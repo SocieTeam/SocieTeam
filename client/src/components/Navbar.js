@@ -1,6 +1,7 @@
 import StateContext from './contexts/StateContext'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import icon from '../assets/images/user.svg'
 
 function Navbar () {
 
@@ -18,6 +19,10 @@ function Navbar () {
         eventManager: {
             route: '/event-manager',
             name: 'Event Manager'
+        },
+        eventsFeed: {
+            route: '/eventsFeed',
+            name: 'Event Feed'
         }
     }
     
@@ -32,7 +37,8 @@ function Navbar () {
                         navbarLinks.map(link => {
                             return (
                             <Link
-                        
+                            
+                            className="link"
                             to={ linkMap[link].route }
                             key={ link }
                             >
@@ -46,7 +52,11 @@ function Navbar () {
                  </div>
                 { loggedUser ? 
                     <div className="logged-user">
-                        <Link to='/account'><span>{ loggedUser.username }</span></Link>
+                        <Link className="link" to='/account'>
+                            <div className="user-avatar">
+                                <img style={{width: '50%'}} src={loggedUser.profile_pic ? loggedUser.profile_pic : icon}/>
+                            </div>
+                        </Link>
                     </div> : null
                 }
             </div>
@@ -70,21 +80,23 @@ function Navbar () {
                 }
                 .links-and-user {
                     display: flex;
+                    align-items: center;
                     font-size: 0.5em;
                 }
                 .links-section {
                     display: flex;
                 }
-                .links-section a {
-                    text-decoration: none;
-                    color: white;
-                }
                 .logged-user {
                     margin-left: 1em;
                 }
-                .logged-user a {
-                    text-decoration: none;
-                    color: white;
+                .user-avatar {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 2em;
+                    height: 2em;
+                    border-radius: 1.5em;
+                    background-color: lightgrey;
                 }
             `}</style>
         </nav>

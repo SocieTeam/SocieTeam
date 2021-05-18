@@ -4,11 +4,15 @@ import { useState, useEffect, useContext } from 'react';
 import OtherEventCard from './cards/otherEventsCard';
 
 function EventFeed() {
-    const { loggedUser } = useContext(StateContext);
+
+    const { loggedUser, setNavbarLinks } = useContext(StateContext)
+    
     const [reservations, setRes] = useState([]);
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
+
+        setNavbarLinks(['eventManager', 'eventsFeed'])
         fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}/reservations`)
         .then(results => results.json())
         .then(data => {
@@ -23,7 +27,7 @@ function EventFeed() {
     }, [])
 
     return (
-        <div>
+        <div className="top-level">
             <h1>Reservations</h1>
             <div>
                 {reservations.map(event => <ReservationCard event = {event}/>)}
@@ -32,6 +36,14 @@ function EventFeed() {
             <div>
                 {events.map(event => <OtherEventCard event = {event}/>)}
             </div>
+            <style jsx>{`
+                .top-level {
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: scroll;
+                    height: 100%;
+                }
+            `}</style>
         </div>
     )
 }
