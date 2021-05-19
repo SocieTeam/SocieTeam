@@ -6,7 +6,7 @@ function SignUp () {
 
     const history = useHistory()
 
-    const { setNavbarLinks } = useContext(StateContext)
+    const { setNavbarLinks, setLoggedUser } = useContext(StateContext)
 
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
@@ -26,6 +26,9 @@ function SignUp () {
         fetch(`${process.env.REACT_APP_API_URL}/users/newUser`, options)
         .then(res => res.json())
         .then(json => {
+            const verifiedUser = {user: json.user.username, token: json.token, userId: json.user.id}
+            localStorage.setItem('societeam-token', JSON.stringify(verifiedUser))
+            setLoggedUser(json.user)
             history.push('/account')
         })
     }
