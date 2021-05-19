@@ -25,8 +25,25 @@ function EventManagerCard (props) {
         .then(res => {
             if (res.ok) {
                 res.json().then(json => {
-                    history.go(0)
+                    history.push('/fake')
+                    history.goBack()
                 })
+            }
+        })
+    }
+
+    function deleteEvent () {
+        const options = {
+            method: 'DELETE',
+            headers: {
+                authorization: auth
+            },
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/events/${event.id}/`, options)
+        .then(res => {
+            if (res.ok) {
+                history.push('/fake')
+                history.goBack()
             }
         })
     }
@@ -60,7 +77,7 @@ function EventManagerCard (props) {
                     eventType === 'user-event' ?
                     <>
                         <div className="option-icon"><img src={edit}></img></div>
-                        <div className="option-icon"><img src={close}></img></div>
+                        <div onClick={deleteEvent} className="option-icon"><img src={close}></img></div>
                     </>
                     :
                     <div onClick={unreserve} className="option-icon"><img src={close}></img></div>

@@ -65,16 +65,16 @@ const reserveEvent = async (req, res) => {
 
 const deleteEvent = async (req, res) => {
     const event_id = req.params.id;
-    const user_id = '1'; //Temporary until session cookie is available
+    const user_id = req.userId
     const event = await Event.getEvent(event_id);
 
     try {
-        if(user_id == event.user_id) {
-            const removed = await Event.deleteEvent(event_id);
-            res.json(removed);
+        if (user_id === event.user_id) {
+            await Event.deleteEvent(event_id);
+            res.status(204).send('Successful deletion')
         }
         else {
-            throw new Error ('users do not match');
+            throw new Error('users do not match');
         }
     }
     catch (err){

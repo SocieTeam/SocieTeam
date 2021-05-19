@@ -10,7 +10,7 @@ router.post('/new', eventsController.createEvent);
 router.post('/:id/reserve', auth, eventsController.reserveEvent);
 
 //DELETE /events/:id
-router.delete('/:id', eventsController.deleteEvent);
+router.delete('/:id', auth, eventsController.deleteEvent);
 
 //GET /events/:id
 router.get('/:id', eventsController.getEvent);

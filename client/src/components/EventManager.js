@@ -5,9 +5,8 @@ import EventManagerCard from './EventManagerCard'
 
 function EventManager () {
 
-    const { loggedUser, setNavbarLinks } = useContext(StateContext)
+    const { loggedUser, setNavbarLinks, eventManagerPane, setEventManagerPane } = useContext(StateContext)
 
-    const [activeTab, setActiveTab] = useState('reservations')
     const [reservedEvents, setReservedEvents] = useState([])
     const [userEvents, setUserEvents] = useState([])
 
@@ -57,25 +56,25 @@ function EventManager () {
             <div className="event-section">
                 <div className="event-tabs">
                     <div 
-                    className={`event-tab ${activeTab === 'reservations' ? 'active-tab' : ''}`}
-                    onClick={()=> {setActiveTab('reservations')}}
+                    className={`event-tab ${eventManagerPane === 'reservations' ? 'active-tab' : ''}`}
+                    onClick={()=> {setEventManagerPane('reservations')}}
                     >Reservations</div>
                     <div 
-                    className={`event-tab ${activeTab === 'user-events' ? 'active-tab' : ''}`}
-                    onClick={()=> {setActiveTab('user-events')}}
+                    className={`event-tab ${eventManagerPane === 'user-events' ? 'active-tab' : ''}`}
+                    onClick={()=> {setEventManagerPane('user-events')}}
                     >My Events</div>
                 </div>
                 <div 
-                // style={{visibility: activeTab === 'reservations' ? 'flex' : 'none'}} 
-                className={`pane reservations-pane ${activeTab === 'reservations' ? '' : 'hidden'}`}
+                // style={{visibility: eventManagerPane === 'reservations' ? 'flex' : 'none'}} 
+                className={`pane reservations-pane ${eventManagerPane === 'reservations' ? '' : 'hidden'}`}
                 >
                     {
                         reservedEvents.map(event => <EventManagerCard key={event.id} eventType="reservation" event={event}/>)
                     }
                 </div>
                 <div 
-                // style={{visibility: activeTab === 'user-events' ? 'flex' : 'none'}}
-                className={`pane user-events-pane ${activeTab === 'user-events' ? '' : 'hidden'}`}
+                // style={{visibility: eventManagerPane === 'user-events' ? 'flex' : 'none'}}
+                className={`pane user-events-pane ${eventManagerPane === 'user-events' ? '' : 'hidden'}`}
                 >
                     {
                         userEvents.map(event => <EventManagerCard key={event.id} eventType="user-event" event={event}/>)
