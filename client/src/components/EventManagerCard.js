@@ -5,11 +5,30 @@ import edit from '../assets/images/edit.svg'
 function EventManagerCard (props) {
 
     const history = useHistory()
+    const token = JSON.parse(localStorage.getItem('societeam-token')).token
+    const auth = `Bearer ${token}` 
 
     const { event, eventType } = props
 
     function eventClickHandler () {
         history.push(`/event/${event.id}`)
+    }
+
+    function unreserve () {
+        const options = {
+            method: 'POST',
+            headers: {
+                authorization: auth
+            },
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/events/${event.id}/reserve`, options)
+        .then(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    history.go(0)
+                })
+            }
+        })
     }
 
     return (
@@ -44,7 +63,7 @@ function EventManagerCard (props) {
                         <div className="option-icon"><img src={close}></img></div>
                     </>
                     :
-                    <div className="option-icon"><img src={close}></img></div>
+                    <div onClick={unreserve} className="option-icon"><img src={close}></img></div>
                 } 
             </div>
             <style jsx>{`

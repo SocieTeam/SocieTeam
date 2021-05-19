@@ -15,7 +15,7 @@ function EventManager () {
         setNavbarLinks(['eventManager', 'eventsFeed'])
         if (!loggedUser) return
 
-        const token = JSON.stringify(localStorage.getItem('societeam-token')).token
+        const token = JSON.parse(localStorage.getItem('societeam-token')).token
         const options = {
             headers: {
                 authorization: `Bearer ${token}`
