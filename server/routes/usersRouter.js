@@ -10,7 +10,7 @@ router.get('/:id', auth, userController.getUser);
 router.get('/:id/events', userController.getUserEvents);
 
 // GET: /users/:id/reservations
-router.get('/:id/reservations', userController.getUserReservations);
+router.get('/:id/reservations', auth, userController.getUserReservations);
 
 // POST: /users/newUser
 router.post('/newUser', userController.createUser);
