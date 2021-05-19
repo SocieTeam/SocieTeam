@@ -5,10 +5,12 @@ function StateProvider (props) {
 
     const [navbarLinks, setNavbarLinks] = useState([])
     const [loggedUser, setLoggedUser] = useState(null)
+    const [eventManagerPane, setEventManagerPane] = useState('reservations')
 
     const value = {
         navbarLinks, setNavbarLinks,
-        loggedUser, setLoggedUser
+        loggedUser, setLoggedUser,
+        eventManagerPane, setEventManagerPane
     }
     
     return (

@@ -5,11 +5,47 @@ import edit from '../assets/images/edit.svg'
 function EventManagerCard (props) {
 
     const history = useHistory()
+    const token = JSON.parse(localStorage.getItem('societeam-token')).token
+    const auth = `Bearer ${token}` 
 
     const { event, eventType } = props
 
     function eventClickHandler () {
         history.push(`/event/${event.id}`)
+    }
+
+    function unreserve () {
+        const options = {
+            method: 'POST',
+            headers: {
+                authorization: auth
+            },
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/events/${event.id}/reserve`, options)
+        .then(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    history.push('/fake')
+                    history.goBack()
+                })
+            }
+        })
+    }
+
+    function deleteEvent () {
+        const options = {
+            method: 'DELETE',
+            headers: {
+                authorization: auth
+            },
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/events/${event.id}/`, options)
+        .then(res => {
+            if (res.ok) {
+                history.push('/fake')
+                history.goBack()
+            }
+        })
     }
 
     return (
@@ -44,9 +80,10 @@ function EventManagerCard (props) {
                             <img src={edit}></img>
                         </div>
                         <div className="option-icon"><img src={close}></img></div>
+
                     </>
                     :
-                    <div className="option-icon"><img src={close}></img></div>
+                    <div onClick={unreserve} className="option-icon"><img src={close}></img></div>
                 } 
             </div>
             <style jsx>{`
