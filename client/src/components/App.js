@@ -8,7 +8,7 @@ import Profile from './Profile'
 import NewEvent from './NewEvent'
 import Event from './Event'
 import Home from './Home'
-
+import EditEvent from './EditEvent'
 import EventManager from './EventManager'
 import EventFeed from './EventsFeed';
 
@@ -58,13 +58,16 @@ function App() {
         <Route path={['/newEvent']}>
           <NewEvent />
         </Route>
+        <Route exact path={['/event/:id/edit']}>
+          <EditEvent />
+        </Route>
         <Route path={['/account']}>
           <Profile />
         </Route>
-        <Route path = {['/eventsfeed']}>
+        <Route path={['/eventsfeed']}>
           <EventFeed />
         </Route>
-        <Route exact path = {['/event/:id']}>
+        <Route exact path={['/event/:id']}>
           <Event />
         </Route>
         <Route path={['/event-manager']}>

@@ -38,14 +38,15 @@ class Event {
         db.query(queryText, [event_id]).then(results => results.rows);
     }
 
-    static updateEvent(updateForm, event, event_id) {
-        const queryText = 'UPDATE Events SET title = $1, location = $2, time_start = $4, time_end = $5, isVirtual = $6 WHERE id = $7';
+    static updateEvent(event, event_id) {
 
-        const title = updateForm.title || event.title;
-        const location = updateForm.location || event.location;
-        const time_start = updateForm.time_start || event.time_start;
-        const time_end = updateForm.time_end || event.time_end;
-        const isVirtual = updateForm.isVirtual || event.isVirtual;
+        const title = event.title;
+        const location = event.location;
+        const time_start = event.time_start;
+        const time_end = event.time_end;
+        const isVirtual = event.isVirtual;
+
+        const queryText = 'UPDATE Events SET title = $1, location = $2, time_start = $3, time_end = $4, isvirtual = $5 WHERE id = $6';
 
         db.query(queryText, [title, location, time_start, time_end, isVirtual, event_id]);
         return db.query('SELECT * FROM Events WHERE id = $1', [event_id]).then(results => results.rows[0]);

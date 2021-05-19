@@ -76,8 +76,11 @@ function EventManagerCard (props) {
                 {
                     eventType === 'user-event' ?
                     <>
-                        <div className="option-icon"><img src={edit}></img></div>
-                        <div onClick={deleteEvent} className="option-icon"><img src={close}></img></div>
+                        <div onClick={() => {history.push(`/event/${event.id}/edit`)}} className="option-icon">
+                            <img src={edit}></img>
+                        </div>
+                        <div className="option-icon"><img src={close}></img></div>
+
                     </>
                     :
                     <div onClick={unreserve} className="option-icon"><img src={close}></img></div>

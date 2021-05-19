@@ -18,4 +18,8 @@ router.get('/:id', eventsController.getEvent);
 //GET /events
 router.get('/', eventsController.getEvents);
 
+// PATCH /events/:id
+router.patch('/:id', auth, eventsController.editEvent);
+
+
 module.exports = router;
