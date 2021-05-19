@@ -130,7 +130,7 @@ function Event () {
                     {
                         user.id === event.user_id ?
                         <div style={{width:'100%', display: 'flex', justifyContent: 'space-evenly'}}>
-                            <div onClick={() => {history.push(`/event${id}/edit`)}} className="action editButton">
+                            <div onClick={() => {history.push(`/event/${id}/edit`)}} className="action editButton">
                                 <img src={editLite}/>
                                 <span>Edit</span>
                             </div>

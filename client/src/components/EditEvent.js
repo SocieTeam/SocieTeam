@@ -2,16 +2,18 @@ import { useState, useEffect} from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 
 function EditEvent () {
-
+    
     const history = useHistory()
     const { id } = useParams()
-
+    
     const [title, setTitle] = useState('')
     const [isvirtual, setVirtual] = useState(false)
     const [location, setLocation] = useState('')
     const [description, setDescription] = useState('')
     const [time_start, set_time_start] = useState('')
     const [time_end, set_time_end] = useState('');
+    
+    const token = JSON.parse(localStorage.getItem('societeam-token')).token
 
     function dateInputParser (rawDate) {
         const obj = new Date(rawDate)
@@ -28,7 +30,12 @@ function EditEvent () {
     }
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/events/${id}`)
+
+        const options = {
+            headers: {authorization: `Bearer ${token}`}
+        }
+
+        fetch(`${process.env.REACT_APP_API_URL}/events/${id}`, options)
         .then(res => {
             if (res.ok) {
                 res.json().then(json => {
@@ -47,7 +54,6 @@ function EditEvent () {
 
     function editHandler (e) {
         e.preventDefault()
-        const token = JSON.parse(localStorage.getItem('societeam-token')).token
         const options = {
             method: 'PATCH',
             headers: {
@@ -58,7 +64,6 @@ function EditEvent () {
         }
         fetch(`${process.env.REACT_APP_API_URL}/events/${id}`, options)
         .then(res => {
-            console.log(res.ok)
             if (res.ok) {
                 res.json().then(json => {
                     history.push('/event-manager')
