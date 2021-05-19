@@ -84,22 +84,21 @@ const deleteEvent = async (req, res) => {
 
 const editEvent = async (req, res) => {
     const event_id = req.params.id;
-    const user_id = '1';//Temporary until session cookie is available
-    const updateEvent = {title: 'New title', isVirtual: false};
-
-    const event = await Event.getEvent(event_id);
-
+    console.log(req.body)
     try {
-        if (user_id == event.user_id) {
-            const updatedEvent = await Event.updateEvent(updateEvent, event, event_id);
-            res.json(updatedEvent)
+        let event = await Event.getEvent(event_id);
+        event = Object.assign(event, req.body)
+        if (req.userId === event.user_id) {
+            const updatedEvent = await Event.updateEvent(event, event_id);
+            res.status(200).json(updatedEvent)
         }
         else {
             throw new Error ('users do not match')
         }
     }
-    catch {
-
+    catch (err) {
+        console.log(err)
+        res.status(500).send(err.message)
     }
 }
 
@@ -108,5 +107,6 @@ module.exports = {
     reserveEvent,
     deleteEvent,
     getEvent,
-    getEvents
+    getEvents,
+    editEvent
 }
