@@ -61,7 +61,7 @@ function EditEvent () {
             console.log(res.ok)
             if (res.ok) {
                 res.json().then(json => {
-                    history.goBack()
+                    history.push('/event-manager')
                 })
             }
         })
