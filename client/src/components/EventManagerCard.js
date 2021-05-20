@@ -51,7 +51,7 @@ function EventManagerCard (props) {
     return (
         <div className="event-card">
             <div onClick={eventClickHandler} className="card-image">
-                <img src = {event.image} width = '100%'></img>
+                <img src={event.image}></img>
             </div>
             <div onClick={eventClickHandler} className="card-info">
                 <span className="event-title">{ event.title }</span>
@@ -61,16 +61,9 @@ function EventManagerCard (props) {
                 }
                     <div className="event-dates">
                         <span className="event-start">{ new Date(event.time_start).toLocaleDateString() }</span>
-                        <span>-</span>
-                        <span className="event-end">{ new Date(event.time_end).toLocaleDateString() }</span>
                     </div>
                     <div className="event-location">
-                        {
-                            event.isvirtual ?
-                            <span>{`Event Link: ${event.location}`}</span>
-                            :
-                            <span>{event.location}</span>
-                        }
+                        <span>{event.location}</span>
                     </div>
                 </div>
             </div>
@@ -101,9 +94,13 @@ function EventManagerCard (props) {
                     box-sizing: border-box;
                 }
                 .card-image {
-                    background-color: lightgrey;
                     height: 100%;
                     aspect-ratio: 1;
+                }
+                .card-image img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
                 }
                 .card-info {
                     margin-left: 1em;

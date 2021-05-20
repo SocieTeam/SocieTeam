@@ -18,7 +18,7 @@ class User {
         return db.query(queryText, [id]).then(results => results.rows);
     }
     static getUserReservations(id){
-        const queryText = 'SELECT title, username, location, time_start, time_end, isvirtual, Events.id FROM Events JOIN Reservations ON Reservations.event_id = Events.id JOIN Users ON Users.id = Events.user_id WHERE Reservations.user_id = $1';
+        const queryText = 'SELECT title, username, location, time_start, time_end, isvirtual, image, Events.id FROM Events JOIN Reservations ON Reservations.event_id = Events.id JOIN Users ON Users.id = Events.user_id WHERE Reservations.user_id = $1';
         return db.query(queryText, [id]).then(results => results.rows);
     }
     static createUser(user){

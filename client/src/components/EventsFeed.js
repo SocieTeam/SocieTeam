@@ -26,6 +26,7 @@ function EventFeed() {
         .then(res => {
             if (res.ok) {
                 res.json().then(json => {
+                    console.log(json)
                     setRes(json.reservations)
                 })
             } else {

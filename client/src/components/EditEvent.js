@@ -86,7 +86,7 @@ function EditEvent () {
                 authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({title, isvirtual, location, description, time_start, time_end, image})
+            body: JSON.stringify({title, isvirtual, location, description, time_start, time_end, image, zip})
         }
         fetch(`${process.env.REACT_APP_API_URL}/events/${id}`, options)
         .then(res => {
