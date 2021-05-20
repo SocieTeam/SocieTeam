@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom'
 
 function OtherEventCard (props) {
 
-    const { title, time_start, username, id } = props.event
+    const { title, time_start, username, id, image } = props.event
 
     const history = useHistory()
 
@@ -13,7 +13,7 @@ function OtherEventCard (props) {
     return (
         <div onClick={eventClickHandler} className="feed-event-card">
             <div className="card-image">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/SunsetPark.jpg/290px-SunsetPark.jpg"></img>
+                <img src={image}></img>
             </div>
             <div className="card-details">
                 <span className="card-title">{title}</span>

@@ -92,7 +92,7 @@ function Event () {
         <div className="top-level">
             <div className="back-button" onClick={() => {history.goBack()}}><img src={back}/><span>Back</span></div>
             <div className="image-banner">
-                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/SunsetPark.jpg/290px-SunsetPark.jpg' alt='park'></img>
+                <img src={event.image} alt='park'></img>
             </div>
             <section className="info-section">
                 <h2 className="title">{event.title}</h2>

@@ -1,6 +1,7 @@
 import StateContext from './contexts/StateContext'
 import { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import Progress from './ProgressPerc';
 
 function NewEvent () {
 
@@ -16,6 +17,28 @@ function NewEvent () {
     const [endDate, setEnd] = useState('');
     const [zip, setZip] = useState('')
 
+    //FireBase UseStates ALSO checks to see if proper file is chosen
+    const [file, setFile] = useState(null);
+    const [fileError, setError] = useState(null);
+
+    //FileURL
+    const [fileURL, setFileURL] = useState('https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/SunsetPark.jpg/290px-SunsetPark.jpg');
+
+    function imageChoose (e) {
+        const file = e.target.files[0];
+        
+        const types = ['image/png', 'image/jpeg'];
+
+        if(file && types.includes(file.type)) {
+            setFile(file);
+            setError(null);
+        }
+        else {
+            setFile(null);
+            setError('Please Select an image file (png or jpeg)');
+        }
+    }
+
     function eventSubmit (e) {
         e.preventDefault();
         let obj = {
@@ -26,7 +49,8 @@ function NewEvent () {
             description,
             zip,
             time_start: new Date(startDate),
-            time_end: new Date(endDate)
+            time_end: new Date(endDate),
+            image: fileURL
         }
 
         const token = JSON.stringify(localStorage.getItem('societeam-token')).token
@@ -59,9 +83,14 @@ function NewEvent () {
                 <hr/>
             </div>
             <div className="image-banner">
-                <img src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/SunsetPark.jpg/290px-SunsetPark.jpg' alt='park'></img>
+                <img src = {fileURL} alt='park'></img>
             </div>
             <form className="new-event-form" onSubmit={eventSubmit}>
+            <input type = 'file' accept = 'image/*' onChange = {imageChoose}></input>
+            <div>
+                { fileError && <div> {fileError} </div>}
+                { file && <Progress file = {file} setFile = {setFile} setFileURL = {setFileURL}/>}
+            </div>
                 <div className="new-event-input-group">
                     <span className="new-event-input-label">Event Title</span>
                     <input 

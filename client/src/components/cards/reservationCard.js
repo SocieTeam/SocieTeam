@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 function ReservationCard(props) {
 
     const history = useHistory()
-    const { title, time_start, username, id } = props.event
+    const { title, time_start, username, id, image } = props.event
 
     function clickHandler () {
         history.push(`/event/${id}`)
@@ -12,7 +12,7 @@ function ReservationCard(props) {
     return (
         <div onClick={clickHandler} className="feed-reservation-card">
             <div className="card-image">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/SunsetPark.jpg/290px-SunsetPark.jpg"></img>
+                <img src={image}></img>
             </div>
             <div className="card-details">
                 <span className="card-title">{title}</span>
