@@ -1,24 +1,91 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import StateContext from './contexts/StateContext'
 import clock from '../assets/images/clock.svg'
 import back from '../assets/images/back.svg'
 import video from '../assets/images/video.svg'
 import location from '../assets/images/location.svg'
 import edit from '../assets/images/edit.svg'
+import editLite from '../assets/images/editLite.svg'
+import closeLite from '../assets/images/closeLite.svg'
+import checkLite from '../assets/images/checkLite.svg'
 
 function Event () {
 
+    const { loggedUser, setNavbarLinks } = useContext(StateContext)
+    
     const history = useHistory()
     const { id } = useParams();
     const [event, setEvent] = useState({})
+    const [user, setUser] = useState({})
+    const [isReserved, setReserved] = useState(false)
 
     useEffect(() => {
-        fetch(`http://localhost:5000/events/${id}`)
-        .then(results => results.json())
-        .then(data => {
-            setEvent(data)
+        const token = JSON.parse(localStorage.getItem('societeam-token')).token
+
+        if (!loggedUser) {
+            return
+        } else { setUser(loggedUser) }
+
+        setNavbarLinks(['eventsFeed', 'eventManager'])
+
+        const options = {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/events/${id}`, options)
+        .then(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    setEvent(json)
+                })
+            }
         })
-    }, [])
+
+        fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}/reservations`, options)
+        .then(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    setReserved(!(json.reservations.every(reservation => reservation.id != id)))
+                })
+            } else {
+                console.log('something got fudged')
+            }
+        })
+    }, [loggedUser])
+
+    function deleteHandler () {
+        const options = {
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${JSON.parse(localStorage.getItem('societeam-token')).token}`
+            },
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/events/${id}/`, options)
+        .then(res => {
+            if (res.ok) {
+                history.push('/event-manager')
+            }
+        })
+    }
+
+    function reserveHandler () {
+        const options = {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${JSON.parse(localStorage.getItem('societeam-token')).token}`
+            },
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/events/${id}/reserve`, options)
+        .then(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    history.push('/event-manager')
+                })
+            }
+        })
+    }
 
 
     return (
@@ -58,6 +125,32 @@ function Event () {
                         <span className="info-label">Description</span>
                     </div>
                     <span className="description">{event.description ? event.description : <i>The event organizer did not include a description.</i>}</span>
+                </div>
+                <div className="actions">
+                    {
+                        user.id === event.user_id ?
+                        <div style={{width:'100%', display: 'flex', justifyContent: 'space-evenly'}}>
+                            <div onClick={() => {history.push(`/event/${id}/edit`)}} className="action editButton">
+                                <img src={editLite}/>
+                                <span>Edit</span>
+                            </div>
+                            <div onClick={deleteHandler} className="action deleteButton">
+                                <img src={closeLite}/>
+                                <span>Delete</span>
+                            </div>
+                        </div>
+                        :
+                        isReserved ? 
+                        <div onClick={reserveHandler} className="action reserve-button">
+                            <img src={closeLite}/>
+                            <span>Un-RSVP</span>
+                        </div>
+                        :
+                        <div onClick={reserveHandler} className="action reserve-button">
+                            <img src={checkLite}/>
+                            <span>RSVP</span>
+                        </div>
+                    }
                 </div>
             </section>
             
@@ -119,6 +212,26 @@ function Event () {
                 }
                 .back-button img {
                     height: 100%;
+                }
+                .actions {
+                    height: 3em;
+                    margin-top: 2em;
+                    display: flex;
+                    justify-content: center;
+                }
+                .action {
+                    padding: 0.5em;
+                    width: 6.55em;
+                    border: 1px solid black;
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    border-radius: 5px;
+                    background-color: black;
+                    color: white;
+                }
+                .action img {
+                   height: 60%;
                 }
             `}</style>
         </div>

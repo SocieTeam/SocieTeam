@@ -13,7 +13,7 @@ router.post('/:id/reserve', auth, eventsController.reserveEvent);
 router.delete('/:id', auth, eventsController.deleteEvent);
 
 //GET /events/:id
-router.get('/:id', eventsController.getEvent);
+router.get('/:id', auth, eventsController.getEvent);
 
 //GET /events
 router.get('/', eventsController.getEvents);

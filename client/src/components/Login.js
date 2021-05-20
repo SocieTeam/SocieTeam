@@ -32,7 +32,7 @@ function Login () {
                     const verifiedUser = {user: json.user.username, token: json.token, userId: json.user.id}
                     localStorage.setItem('societeam-token', JSON.stringify(verifiedUser))
                     setLoggedUser(json.user)
-                    history.push('/account')
+                    history.push('/eventsFeed')
                 })
             } else {
                 setLoginError(true)

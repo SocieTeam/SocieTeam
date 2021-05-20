@@ -14,7 +14,7 @@ CREATE TABLE Users(
 CREATE TABLE Events(
 	id SERIAL PRIMARY KEY,
 	title TEXT,
-	user_id INT REFERENCES Users(id),
+	user_id INT REFERENCES Users(id) ON DELETE CASCADE,
 	location TEXT,
 	time_start TIMESTAMP,
 	time_end TIMESTAMP,
@@ -23,6 +23,6 @@ CREATE TABLE Events(
 
 CREATE TABLE Reservations(
 	id SERIAL PRIMARY KEY,
-	user_id INT REFERENCES Users(id),
-	event_id INT REFERENCES Events(id)
+	user_id INT REFERENCES Users(id) ON DELETE CASCADE,
+	event_id INT REFERENCES Events(id) ON DELETE CASCADE
 );
