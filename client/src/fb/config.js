@@ -4,12 +4,12 @@
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var firebaseConfig = {
-    apiKey: "AIzaSyC_MuQLGMAHhwHYhd9_8LMXddO31pfooik",
-    authDomain: "societeam-b90d7.firebaseapp.com",
-    projectId: "societeam-b90d7",
-    storageBucket: "societeam-b90d7.appspot.com",
-    messagingSenderId: "309516992725",
-    appId: "1:309516992725:web:1c1ae7a062169aa349e25c",
+    apiKey: process.env.REACT_APP_FB_API,
+    authDomain: process.env.REACT_APP_FB_authDomain,
+    projectId: process.env.REACT_APP_FB_projectId,
+    storageBucket: process.env.REACT_APP_FB_storageBucket,
+    messagingSenderId: process.env.REACT_APP_FB_messaging,
+    appId: process.env.REACT_APP_FB_appId,
     measurementId: "G-VC7BV5LH84"
   };
   // Initialize Firebase

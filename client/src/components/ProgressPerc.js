@@ -9,8 +9,6 @@ const Progress = ({file, setFile, setFileURL}) => {
             setFileURL(url);
         }
     }, [url, setFileURL])
-
-    console.log(progress, url);
     return (
         <div>
             {`${progress}%`}
