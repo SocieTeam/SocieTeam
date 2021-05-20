@@ -12,6 +12,7 @@ function EditEvent () {
     const [description, setDescription] = useState('')
     const [time_start, set_time_start] = useState('')
     const [time_end, set_time_end] = useState('');
+    const [zip, setZip] = useState('')
     
     const token = JSON.parse(localStorage.getItem('societeam-token')).token
 
@@ -45,6 +46,7 @@ function EditEvent () {
                     setDescription(json.description)
                     set_time_start(json.time_start)
                     set_time_end(json.time_end)
+                    setZip(json.zip)
                 })
             } else {
                 console.log('there was an error')
@@ -111,15 +113,20 @@ function EditEvent () {
                     </div>
                 </div>
                 <hr style={{width: '100%'}}/>
-                <div className="edit-event-input-group">
-                    <label htmlFor='location'>Location/Meeting Link</label>
-                    <input
-                    type='text'
-                    name='location'
-                    placeholder='1234 A BLVD'
-                    value={location}
-                    onChange={(e)=>setLocation(e.target.value)}/>
-                    <hr/>
+                <div className="location-input-group">
+                    <div style={{width: '60%'}} className="inner-group">
+                        <label for='location'>Location/Meeting Link</label>
+                        <input
+                        type='text'
+                        name='location'
+                        placeholder='1234 A BLVD'
+                        value={location}
+                        onChange={(e)=>setLocation(e.target.value)}/>
+                    </div>
+                    <div className="inner-group zip-group">
+                        <span className="new-event-input-label">Zip Code</span>
+                        <input value={zip} placeholder="Ex. 10001" onChange={(e)=>setZip(e.target.value)} name="zip"/>
+                    </div>
                 </div>
 
                 <div className="edit-event-input-group">
@@ -194,6 +201,7 @@ function EditEvent () {
                 }
                 .edit-event-date-group input {
                     width: 100%;
+                    box-sizing: border-box;
                 }
                 .event-type {
                     width: 100%;
@@ -224,6 +232,20 @@ function EditEvent () {
                     color: white;
                     border-radius: 10px;
                     font-size: 1em;
+                }
+                .location-input-group {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+                .inner-group input {
+                    width: 100%;
+                    box-sizing: border-box;
+                    border: 0;
+                    border-bottom: 1px solid black;
+                }
+                .zip-group {
+                    width: 5em;
                 }
             `}</style>
         </div>

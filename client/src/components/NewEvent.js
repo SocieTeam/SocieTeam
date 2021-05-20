@@ -14,6 +14,7 @@ function NewEvent () {
     const [description, setDescription] = useState('')
     const [startDate, setDate] = useState('')
     const [endDate, setEnd] = useState('');
+    const [zip, setZip] = useState('')
 
     function eventSubmit (e) {
         e.preventDefault();
@@ -23,6 +24,7 @@ function NewEvent () {
             isVirtual,
             location,
             description,
+            zip,
             time_start: new Date(startDate),
             time_end: new Date(endDate)
         }
@@ -89,19 +91,24 @@ function NewEvent () {
                     </div>
                 </div>
                 <hr style={{width: '100%'}}/>
-                <div className="new-event-input-group">
-                    <label for='location'>Location/Meeting Link</label>
-                    <input
-                    type='text'
-                    name='location'
-                    placeholder='1234 A BLVD'
-                    value={location}
-                    onChange={(e)=>setLocation(e.target.value)}/>
-                    <hr/>
+                <div className="location-input-group">
+                    <div style={{width: '60%'}} className="inner-group">
+                        <label for='location'>Location/Meeting Link</label>
+                        <input
+                        type='text'
+                        name='location'
+                        placeholder='Ex. 100 Sample Road'
+                        value={location}
+                        onChange={(e)=>setLocation(e.target.value)}/>
+                    </div>
+                    <div className="inner-group zip-group">
+                        <span className="new-event-input-label">Zip Code</span>
+                        <input placeholder="Ex. 10001" onChange={(e)=>setZip(e.target.value)} name="zip"/>
+                    </div>
                 </div>
 
                 <div className="new-event-input-group">
-                    <label for = 'description'>Event Description</label>
+                    <label for='description'>Event Description</label>
                     <textarea name='description'
                     value={description}
                     onChange={(e)=>setDescription(e.target.value)}
@@ -172,6 +179,7 @@ function NewEvent () {
                 }
                 .new-event-date-group input {
                     width: 100%;
+                    box-sizing: border-box;
                 }
                 .event-type {
                     width: 100%;
@@ -202,6 +210,20 @@ function NewEvent () {
                     color: white;
                     border-radius: 10px;
                     font-size: 1em;
+                }
+                .location-input-group {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+                .inner-group input {
+                    width: 100%;
+                    box-sizing: border-box;
+                    border: 0;
+                    border-bottom: 1px solid black;
+                }
+                .zip-group {
+                    width: 5em;
                 }
             `}</style>
         </div>

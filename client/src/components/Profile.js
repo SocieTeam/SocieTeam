@@ -13,7 +13,7 @@ function Profile () {
 
     useEffect(() => {
 
-        setNavbarLinks(['eventManager', 'eventsFeed'])
+        setNavbarLinks(['eventsFeed', 'eventManager'])
 
         if (loggedUser) {
             setUsername(loggedUser.username)

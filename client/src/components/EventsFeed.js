@@ -21,7 +21,7 @@ function EventFeed() {
             }
         }
 
-        setNavbarLinks(['eventManager', 'eventsFeed'])
+        setNavbarLinks(['eventsFeed', 'eventManager'])
         fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}/reservations`, options)
         .then(res => {
             if (res.ok) {
