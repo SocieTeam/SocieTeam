@@ -27,9 +27,9 @@ class User {
         return db.query(queryText, [email, username, password]).then(results => results.rows[0]);
     }
     static updateUser (id, updatedUser){
-        const queryText = 'UPDATE Users SET email = $1, username = $2, password = $3, zip = $4 WHERE id = $5;';
+        const queryText = 'UPDATE Users SET email = $1, username = $2, zip = $3, profile_pic = $4 WHERE id = $5;';
         const query = 'SELECT * FROM Users WHERE id = $1;';
-        db.query(queryText,[updatedUser.email, updatedUser.username, updatedUser.password, updatedUser.zip, id]);
+        db.query(queryText,[updatedUser.email, updatedUser.username, updatedUser.zip, updatedUser.profile_pic, id]);
         return db.query(query,[id]).then(results => results.rows[0]);
       }
 }
