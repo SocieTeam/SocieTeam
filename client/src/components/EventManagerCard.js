@@ -50,7 +50,9 @@ function EventManagerCard (props) {
 
     return (
         <div className="event-card">
-            <div onClick={eventClickHandler} className="card-image"></div>
+            <div onClick={eventClickHandler} className="card-image">
+                <img src = {event.image} width = '100%'></img>
+            </div>
             <div onClick={eventClickHandler} className="card-info">
                 <span className="event-title">{ event.title }</span>
                 <div className="event-info">
