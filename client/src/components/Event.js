@@ -19,6 +19,10 @@ function Event () {
     const [event, setEvent] = useState({})
     const [user, setUser] = useState({})
     const [isReserved, setReserved] = useState(false)
+    let query = ''
+    if(event.location) {
+        query = event.location.split(' ').join('+');
+    }
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('societeam-token')).token
@@ -117,7 +121,8 @@ function Event () {
                         <img className="icon" src={event.isvirtual ? video : location}/>
                         <span className="info-label">{event.isvirtual ? 'Virtual Event' : 'In-Person Event'}</span>
                     </div>
-                    <span className="location">{event.location}</span>
+                    <span className="location">{event.location}</span><br></br>
+                    {<iframe src={`https://www.google.com/maps/embed/v1/search?q=${query}&key=${process.env.REACT_APP_GOOGLEAPI}`}></iframe>}
                 </div>
                 <div className="info-wrapper">
                     <div className="label-wrapper">
