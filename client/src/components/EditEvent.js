@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react';
 import { useHistory, useParams } from 'react-router-dom'
+import AutoComplete from './AutoComplete';
 import Progress from './ProgressPerc'
 
 function EditEvent () {
@@ -141,6 +142,8 @@ function EditEvent () {
                 </div>
                 <hr style={{width: '100%'}}/>
                 <div className="edit-event-input-group">
+                    <p>{location}</p>
+                    <AutoComplete setLocation = {setLocation}>
                     <label htmlFor='location'>Location/Meeting Link</label>
                     <input
                     type='text'
@@ -148,7 +151,8 @@ function EditEvent () {
                     placeholder='1234 A BLVD'
                     value={location}
                     onChange={(e)=>setLocation(e.target.value)}/>
-                    <hr/>
+                    </AutoComplete>
+                <hr/>
                 </div>
 
                 <div className="edit-event-input-group">

@@ -2,6 +2,7 @@ import StateContext from './contexts/StateContext'
 import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Progress from './ProgressPerc';
+import AutoComplete from './AutoComplete'
 
 function NewEvent () {
 
@@ -119,13 +120,16 @@ function NewEvent () {
                 </div>
                 <hr style={{width: '100%'}}/>
                 <div className="new-event-input-group">
+                    <AutoComplete setLocation = {setLocation}>
                     <label for='location'>Location/Meeting Link</label>
+                    
                     <input
                     type='text'
                     name='location'
                     placeholder='1234 A BLVD'
                     value={location}
                     onChange={(e)=>setLocation(e.target.value)}/>
+                    </AutoComplete>
                     <hr/>
                 </div>
 
