@@ -97,6 +97,8 @@ function EventManagerCard (props) {
                     width: calc(100% - 1em);
                     margin: 0.5em 0.5em 0 0.5em;
                     border: 1px solid black;
+                    border-radius: 2%;
+                    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
                     padding: 0.5em;
                     box-sizing: border-box;
                 }

@@ -77,14 +77,13 @@ function EventFeed() {
                     height: 15em;
                     display: flex;
                     align-items: center;
-                    border: 1px solid black;
+                    border: 1px solid gray;
                     overflow-x: scroll;
                     padding: 0.5em;
                     flex-shrink: 0;
                 }
                 .events {
                     padding: 0 0.5em 0.5em 0.5em;
-                    border: 1px solid black;
                 }
             `}</style>
         </div>

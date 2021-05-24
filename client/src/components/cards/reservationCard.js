@@ -4,6 +4,7 @@ function ReservationCard(props) {
 
     const history = useHistory()
     const { title, time_start, username, id, image } = props.event
+    console.log(image);
 
     function clickHandler () {
         history.push(`/event/${id}`)

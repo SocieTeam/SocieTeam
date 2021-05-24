@@ -77,7 +77,7 @@ export class MapContainer extends Component {
             </div>
           )}
         </PlacesAutocomplete>
-        <Map 
+        {/* <Map 
           google={this.props.google}
           initialCenter={{
             lat: this.state.mapCenter.lat,
@@ -93,7 +93,7 @@ export class MapContainer extends Component {
               lat: this.state.mapCenter.lat,
               lng: this.state.mapCenter.lng
             }} />
-        </Map>
+        </Map> */}
       </div>
     )
   }

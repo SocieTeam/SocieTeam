@@ -136,7 +136,7 @@ function Profile () {
             <div className="title-and-avatar">
                 <div className="avatar">
                     <img src = {image} width = '100%'></img>
-                </div>
+                </div><br></br>
                 <input type = 'file' accept = 'image/*' onChange = {imageChoose}></input>
                 { fileError && <div> {fileError} </div>}
                 { file && <Progress file = {file} setFile = {setFile} setFileURL = {setImage}/>}

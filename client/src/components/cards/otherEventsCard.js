@@ -25,6 +25,8 @@ function OtherEventCard (props) {
                     display: flex;
                     width: 100%;
                     border: 1px solid black;
+                    border-radius: 2%;
+                    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
                     margin-top: 0.5em;
                     padding: 0.5em;
                     box-sizing: border-box;
