@@ -74,12 +74,12 @@ function App() {
           <EventManager />
         </Route>
       </Switch>
-      <style jsx>{`
+      {/* <style jsx>{`
         .App {
           display: flex;
           flex-direction: column;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

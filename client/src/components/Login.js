@@ -1,6 +1,7 @@
 import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import {TextField, Container, Button} from '@material-ui/core';
 
 function Login () {
 
@@ -40,96 +41,38 @@ function Login () {
         })
     }
 
-    function changeHandler (e) {
-        switch (e.target.name) {
-            case 'identity':
-                setIdentity(e.target.value)
-                break;
-            case 'password':
-                setPassword(e.target.value)
-                break;
-            default:
-        }
-    }
+    // function changeHandler (e) {
+    //     switch (e.target.name) {
+    //         case 'identity':
+    //             setIdentity(e.target.value)
+    //             break;
+    //         case 'password':
+    //             setPassword(e.target.value)
+    //             break;
+    //         default:
+    //     }
+    // }
 
     return (
-        <div className="top-level">
-            <div className="name-jumbotron">Login</div>
-            <div className="login-form-background">
-                <form onChange={ changeHandler } className="login-form" onSubmit={submitHandler}>
-                    <div className="input-group">
-                        <span>Username OR Email</span>
-                        <input name="identity"></input>
-                    </div>
-                    <div style={{marginTop: '1em'}} className="input-group">
-                        <span>Password</span>
-                        <input name="password" type="password"></input>
-                    </div>
+        <Container component="main" maxWidth="sm" style={{marginTop: '2em'}}>
+            <h1>Login</h1>
+            <form className="login-form" onSubmit={submitHandler}>
+                    <TextField id="userName" label="Username Or Email" fullWidth variant="outlined" value = {identity} onChange={(e)=>setIdentity(e.target.value)}/>
+                    <TextField style={{marginTop: '2em'}} id="password" fullWidth label="Password" type="password" variant="outlined" value ={password} onChange={(e)=>setPassword(e.target.value)}/>
+                    
                     { loginError ? <span>Login Failed</span> : null}
-                    <button style={{marginTop: '3em'}} type="submit">LOGIN</button>
-                </form>
-                <div style={{marginTop: '2em'}} className='register-link'>
-                    <Link style={{textDecoration: 'underline'}}className="link" to='/register'>Don't Have An Account?<br/>Sign Up Here!</Link>
-                </div>
-            </div>
-
+                    <Button variant="contained" color="primary" type="submit" fullWidth style={{marginTop: '2em'}}>LOGIN</Button>      
+            </form>
+            <Link to='/register'>Don't Have An Account?<br/>Sign Up Here!</Link>
+                
+            
             <style jsx>{`
-                .top-level {
-                    display: flex;
-                    flex-direction: column;
-                    height: 100%;
-                }
-                .name-jumbotron {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 15%;
-                    font-size: 2em;
-                }
-                .login-form-background {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    flex: 1;
-                    background-color: black;
-                }
-                .login-form {
-                    margin-top: 3em;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    padding: 10%;
-                    height: 40%;
-                    background-color: white;
-                    width: 60%;
-                    border-radius: 15px;
-                }
-                .login-form input {
-                    background-color: lightgrey;
-                    height: 2em;
-                    border-radius: 5px;
-                }
-                .login-form button {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: black;
-                    color: white;
-                    height: 2.5em;
-                    border-radius: 5px;
-                }
-                .register-link {
-                    text-align: center;
-                }
-                .register-link a {
-                    color: white;
-                }
-                .input-group {
-                    display: flex;
-                    flex-direction: column;
-                }
+                .login-form: {
+                    width: '100%', // Fix IE 11 issue.
+                    marginTop: 5em
+                  }
             `}</style>
-        </div>
+        </Container>
     )
 }
 
