@@ -1,6 +1,5 @@
 import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
-import Progress from './ProgressPerc';
 
 function Profile () {
 
@@ -11,41 +10,17 @@ function Profile () {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [zip, setZip] = useState('')
-    
-    const [profilePic, setPic] = useState('');
-
-    const [image, setImage] = useState(profilePic);
-
-    const [file, setFile] = useState(null);
-    const [fileError, setError] = useState(null);
 
     useEffect(() => {
 
         setNavbarLinks(['eventsFeed', 'eventManager'])
 
         if (loggedUser) {
-            console.log(loggedUser)
-            setImage(loggedUser.profile_pic)
             setUsername(loggedUser.username)
             setEmail(loggedUser.email)
             setZip(loggedUser.zip)
         }
     }, [loggedUser])
-
-    function imageChoose (e) {
-        const file = e.target.files[0];
-        
-        const types = ['image/png', 'image/jpeg'];
-
-        if(file && types.includes(file.type)) {
-            setFile(file);
-            setError(null);
-        }
-        else {
-            setFile(null);
-            setError('Please Select an image file (png or jpeg)');
-        }
-    }
 
     function editHandler (e) {
         switch (e.target.name) {
@@ -96,7 +71,7 @@ function Profile () {
             }
         }
         if (e.target.name === 'usernameSave') {
-            options.body = JSON.stringify({username, email, zip})
+            options.body = JSON.stringify({username})
             fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}`, options)
             .then(res => {
                 if (res.ok) {
@@ -110,7 +85,7 @@ function Profile () {
                 }
             })
         } else if (e.target.name === 'zipSave') {
-            options.body = JSON.stringify({zip, profile_pic: image})
+            options.body = JSON.stringify({zip})
             fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}`, options)
             .then(res => {
                 if (res.ok) {
@@ -134,13 +109,7 @@ function Profile () {
     return (
         <div className="top-level">
             <div className="title-and-avatar">
-                <div className="avatar">
-                    <img src = {image} width = '100%'></img>
-                </div>
-                <input type = 'file' accept = 'image/*' onChange = {imageChoose}></input>
-                { fileError && <div> {fileError} </div>}
-                { file && <Progress file = {file} setFile = {setFile} setFileURL = {setImage}/>}
-                <button name="zipSave" onClick={saveHandler}>Save</button>
+                <div className="avatar"></div>
                 <div className="title">
                     <h1>Account Management</h1>
                     <hr/>
