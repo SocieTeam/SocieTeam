@@ -31,6 +31,7 @@ function OtherEventCard (props) {
                 }
                 .card-image {
                     width: 8em;
+                    height: 8em;
                     border: 3px solid black;
                 }
                 .card-image img {

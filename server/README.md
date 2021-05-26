@@ -4,3 +4,4 @@
 - 3: User not found
 - 4: Failed login auth
 - 5: token expired
+- 6: Invalid zip

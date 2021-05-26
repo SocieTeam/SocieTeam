@@ -21,18 +21,19 @@ function EventFeed() {
             }
         }
 
-        setNavbarLinks(['eventManager', 'eventsFeed'])
+        setNavbarLinks(['eventsFeed', 'eventManager'])
         fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}/reservations`, options)
         .then(res => {
             if (res.ok) {
                 res.json().then(json => {
+                    console.log(json)
                     setRes(json.reservations)
                 })
             } else {
                 console.log('something got fudged')
             }
         })
-        fetch(`${process.env.REACT_APP_API_URL}/events`)
+        fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}/feed`)
         .then(results => results.json())
         .then(data => {
             setEvents(data);

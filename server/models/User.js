@@ -1,7 +1,7 @@
 const db = require("../db/config");
 
 class User {
-    static getUser(id){
+    static getUser(id) {
         const queryText = 'SELECT * FROM Users WHERE id = $1;';
         return db.query(queryText, [id]).then(results => results.rows[0]);
     }
@@ -13,15 +13,15 @@ class User {
         const queryText = 'SELECT * FROM Users WHERE email = $1;'
         return db.query(queryText, [email]).then(results => results.rows[0]);
     }
-    static getUserEvents(id){
+    static getUserEvents(id) {
         const queryText = 'SELECT * FROM Events WHERE user_id = $1;';
         return db.query(queryText, [id]).then(results => results.rows);
     }
-    static getUserReservations(id){
-        const queryText = 'SELECT title, username, location, time_start, time_end, isvirtual, Events.id FROM Events JOIN Reservations ON Reservations.event_id = Events.id JOIN Users ON Users.id = Events.user_id WHERE Reservations.user_id = $1';
+    static getUserReservations(id) {
+        const queryText = 'SELECT title, username, location, time_start, time_end, isvirtual, image, Events.id FROM Events JOIN Reservations ON Reservations.event_id = Events.id JOIN Users ON Users.id = Events.user_id WHERE Reservations.user_id = $1';
         return db.query(queryText, [id]).then(results => results.rows);
     }
-    static createUser(user){
+    static createUser(user) {
         const {email, username, password} = user;
         const queryText = 'INSERT INTO Users (email, username, password) VALUES ($1, $2, $3) RETURNING *;';
         return db.query(queryText, [email, username, password]).then(results => results.rows[0]);
@@ -31,6 +31,10 @@ class User {
         const query = 'SELECT * FROM Users WHERE id = $1;';
         db.query(queryText,[updatedUser.email, updatedUser.username, updatedUser.zip, updatedUser.profile_pic, id]);
         return db.query(query,[id]).then(results => results.rows[0]);
-      }
+    }
+    static getFeed(user_id, zipList) {
+        const queryText = 'SELECT * FROM Events WHERE NOT user_id = $1 AND zip = ANY ($2)'
+        return db.query(queryText, [user_id, zipList]).then(results => results.rows)
+    }
 }
 module.exports = {User};

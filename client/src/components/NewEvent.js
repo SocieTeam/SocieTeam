@@ -16,6 +16,7 @@ function NewEvent () {
     const [description, setDescription] = useState('')
     const [startDate, setDate] = useState('')
     const [endDate, setEnd] = useState('');
+    const [zip, setZip] = useState('')
 
     //FireBase UseStates ALSO checks to see if proper file is chosen
     const [file, setFile] = useState(null);
@@ -47,6 +48,7 @@ function NewEvent () {
             isVirtual,
             location,
             description,
+            zip,
             time_start: new Date(startDate),
             time_end: new Date(endDate),
             image: fileURL
@@ -119,6 +121,7 @@ function NewEvent () {
                     </div>
                 </div>
                 <hr style={{width: '100%'}}/>
+
                 <div className="new-event-input-group">
                     <AutoComplete setLocation = {setLocation}>
                     <label for='location'>Location/Meeting Link</label>
@@ -131,10 +134,11 @@ function NewEvent () {
                     onChange={(e)=>setLocation(e.target.value)}/>
                     </AutoComplete>
                     <hr/>
+
                 </div>
 
                 <div className="new-event-input-group">
-                    <label for = 'description'>Event Description</label>
+                    <label for='description'>Event Description</label>
                     <textarea name='description'
                     value={description}
                     onChange={(e)=>setDescription(e.target.value)}
@@ -205,6 +209,7 @@ function NewEvent () {
                 }
                 .new-event-date-group input {
                     width: 100%;
+                    box-sizing: border-box;
                 }
                 .event-type {
                     width: 100%;
@@ -235,6 +240,20 @@ function NewEvent () {
                     color: white;
                     border-radius: 10px;
                     font-size: 1em;
+                }
+                .location-input-group {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+                .inner-group input {
+                    width: 100%;
+                    box-sizing: border-box;
+                    border: 0;
+                    border-bottom: 1px solid black;
+                }
+                .zip-group {
+                    width: 5em;
                 }
             `}</style>
         </div>

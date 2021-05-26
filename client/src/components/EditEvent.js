@@ -36,6 +36,7 @@ function EditEvent () {
     const [description, setDescription] = useState('')
     const [time_start, set_time_start] = useState('')
     const [time_end, set_time_end] = useState('');
+    const [zip, setZip] = useState('')
     
     const token = JSON.parse(localStorage.getItem('societeam-token')).token
 
@@ -69,6 +70,7 @@ function EditEvent () {
                     setDescription(json.description)
                     set_time_start(json.time_start)
                     set_time_end(json.time_end)
+                    setZip(json.zip)
                     setFileURL(json.image)
                 })
             } else {
@@ -85,7 +87,7 @@ function EditEvent () {
                 authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({title, isvirtual, location, description, time_start, time_end, image})
+            body: JSON.stringify({title, isvirtual, location, description, time_start, time_end, image, zip})
         }
         fetch(`${process.env.REACT_APP_API_URL}/events/${id}`, options)
         .then(res => {
@@ -141,6 +143,7 @@ function EditEvent () {
                     </div>
                 </div>
                 <hr style={{width: '100%'}}/>
+
                 <div className="edit-event-input-group">
                     <p>{location}</p>
                     <AutoComplete setLocation = {setLocation}>
@@ -227,6 +230,7 @@ function EditEvent () {
                 }
                 .edit-event-date-group input {
                     width: 100%;
+                    box-sizing: border-box;
                 }
                 .event-type {
                     width: 100%;
@@ -257,6 +261,20 @@ function EditEvent () {
                     color: white;
                     border-radius: 10px;
                     font-size: 1em;
+                }
+                .location-input-group {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+                .inner-group input {
+                    width: 100%;
+                    box-sizing: border-box;
+                    border: 0;
+                    border-bottom: 1px solid black;
+                }
+                .zip-group {
+                    width: 5em;
                 }
             `}</style>
         </div>

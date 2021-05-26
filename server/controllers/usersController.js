@@ -1,7 +1,8 @@
 const { User } = require('../models/User');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {CustomError, errorHandler} = require('../middlewares/errors')
+const { CustomError, errorHandler } = require('../middlewares/errors')
+const fetch = require('node-fetch')
 
 // Gets a user by id
 const getUser = async (req, res) => {
@@ -106,6 +107,28 @@ const login = async (req, res) => {
     } catch (err) {
         errorHandler(res, err)
     }
+}
+
+const getFeed = async (req, res) => {
+    const userId = req.params.id
+    try {
+        const user = await User.getUser(userId)
+        const zip = user.zip
+        if (!zip) throw new CustomError('Invalid Zip', 401, 6)
+        fetch(`${process.env.ZIPCODE_BASE_BASE_URL}/radius?apikey=${process.env.ZIPCODE_BASE_API_KEY}&code=${zip}&radius=10&unit=miles&country=us`)
+        .then(res => res.json())
+        .then(async (json) => {
+            const zipList = json.results.map(zip => zip.code)
+            const feed = await User.getFeed(userId, zipList)
+            for (let i=0; i<feed.length; i++) {
+                const user = await User.getUser(feed[i].user_id)
+                feed[i].username = user.username
+            }
+            res.status(200).send(feed)
+        })
+    } catch (err) {
+        errorHandler(res, err)
+    }
 
 }
 
@@ -115,5 +138,6 @@ module.exports = {
     getUserReservations,
     createUser,
     updateUser,
-    login
+    login,
+    getFeed
 };

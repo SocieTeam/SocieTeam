@@ -9,6 +9,7 @@ import edit from '../assets/images/edit.svg'
 import editLite from '../assets/images/editLite.svg'
 import closeLite from '../assets/images/closeLite.svg'
 import checkLite from '../assets/images/checkLite.svg'
+import map from '../assets/images/map.svg'
 
 function Event () {
 
@@ -116,10 +117,20 @@ function Event () {
                     <span className="date">{`${new Date(event.time_end).toLocaleDateString()}`}</span>
                     <span className="time">At {`${new Date(event.time_end).toLocaleTimeString()}`}</span>
                 </div>
-                <div className="info-wrapper">
-                    <div className="label-wrapper">
-                        <img className="icon" src={event.isvirtual ? video : location}/>
-                        <span className="info-label">{event.isvirtual ? 'Virtual Event' : 'In-Person Event'}</span>
+                <div style={{display: 'flex', width: '100%'}} className="location-wrapper">
+                    <div style={{flex: '3'}} className="info-wrapper">
+                        <div className="label-wrapper">
+                            <img className="icon" src={event.isvirtual ? video : location}/>
+                            <span className="info-label">{event.isvirtual ? 'Virtual Event' : 'In-Person Event'}</span>
+                        </div>
+                        <span className="location">{event.location}</span>
+                    </div>
+                    <div style={{flex: '1'}} className="info-wrapper">
+                        <div className="label-wrapper">
+                            <img className="icon" src={map}/>
+                            <span className="info-label">Zip</span>
+                        </div>
+                        <span className="zip">{event.zip}</span>
                     </div>
                     <span className="location">{event.location}</span><br></br>
                     {<iframe src={`https://www.google.com/maps/embed/v1/search?q=${query}&key=${process.env.REACT_APP_GOOGLEAPI}`}></iframe>}

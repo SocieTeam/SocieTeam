@@ -21,7 +21,7 @@ function Profile () {
 
     useEffect(() => {
 
-        setNavbarLinks(['eventManager', 'eventsFeed'])
+        setNavbarLinks(['eventsFeed', 'eventManager'])
 
         if (loggedUser) {
             console.log(loggedUser)
@@ -102,7 +102,7 @@ function Profile () {
                 if (res.ok) {
                     res.json().then(json => {
                         setLoggedUser(json.user)
-                        setUsername(json.user.username)
+                        setUsername(username)
                         setUsernameEdit(false)
                     })
                 } else {
@@ -116,7 +116,7 @@ function Profile () {
                 if (res.ok) {
                     res.json().then(json => {
                         setLoggedUser(json.user)
-                        setZip(json.user.zip)
+                        setZip(zip)
                         setZipCodeEdit(false)
                     })
                 } else {
