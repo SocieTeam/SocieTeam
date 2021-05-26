@@ -44,7 +44,7 @@ class Event {
         const location = event.location;
         const time_start = event.time_start;
         const time_end = event.time_end;
-        const isVirtual = event.isVirtual;
+        const isVirtual = event.isvirtual;
         const description = event.description;
         const image = event.image;
 

@@ -2,7 +2,8 @@ import StateContext from './contexts/StateContext'
 import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Progress from './ProgressPerc';
-import AutoComplete from './AutoComplete'
+import AutoComplete from './AutoComplete';
+import { Paper, Container, CardMedia, Card, CardContent, Button, TextField} from '@material-ui/core';
 
 function NewEvent () {
 
@@ -76,73 +77,93 @@ function NewEvent () {
 
 
     return (
-        <div className="top-level">
-            <div className="title-banner">
+        <Container component='main' maxWidth='md' style={{marginTop: '1em', padding: '1em'}}>
+            <div className="title-banner" style={{textAlign: 'center'}}>
                 <h1 className="title">New Event</h1>
                 <hr/>
             </div>
-            <div className="image-banner">
-                <img src = {fileURL} alt='park'></img>
-            </div>
-            <form className="new-event-form" onSubmit={eventSubmit}>
-            <input type = 'file' accept = 'image/*' onChange = {imageChoose}></input>
-            <div>
-                { fileError && <div> {fileError} </div>}
-                { file && <Progress file = {file} setFile = {setFile} setFileURL = {setFileURL}/>}
-            </div>
-                <div className="new-event-input-group">
-                    <span className="new-event-input-label">Event Title</span>
-                    <input 
-                    type='text'
-                    placeholder='Ex: Cyber Security Talk'
-                    value = {title} 
-                    onChange = {(e)=>setTitle(e.target.value)}
-                    />
-                    <hr/>
-                </div>
-                
-                <div className="event-type">
-                    <span className="new-event-input-label">Event Type</span>
-                    <div className="event-type-buttons">
-                        <div className={`type-button ${isVirtual ? '' : 'active-button'}`} onClick={()=>setVirtual(false)}>In-Person</div>
-                        <div className={`type-button ${isVirtual ? 'active-button' : ''}`} onClick={()=>setVirtual(true)}>Virtual</div>
-                    </div>
-                </div>
-                <div className="dates">
-                    <div className="new-event-date-group">
-                        <span className="new-event-input-label">Start Date & Time</span>
-                        <input type='datetime-local' onChange={(e)=> setDate(e.target.value)}/>
-                    </div>
-                    <div className="new-event-date-group">
-                        <span className="new-event-input-label">End Date & Time</span>
-                        <input type='datetime-local' name='dateEnd' onChange={(e)=> setEnd(e.target.value)}/>
-                    </div>
-                </div>
-                <hr style={{width: '100%'}}/>
-                <div className="new-event-input-group">
-                    <AutoComplete setLocation = {setLocation}>
-                    <label for='location'>Location/Meeting Link</label>
+            <Paper elevation={3} style={{width: '100%', height: '100%'}}>
+                <Card>
+                    <CardMedia src={fileURL} alt='park' component='img' height='300'/>
+                    <CardContent style={{textAlign: 'center'}}>
+                        <input type = 'file' accept = 'image/*' onChange = {imageChoose} id="contained-button-file" style={{display: 'none'}}></input>
+                        <label htmlFor="contained-button-file">
+                            <Button variant="contained" color="primary" component="span" style={{background: 'black'}}>
+                                Upload
+                            </Button>
+                        </label>
+                        <br></br>
+                        <form onSubmit={eventSubmit}>
+                            <div>
+                                { fileError && <div> {fileError} </div>}
+                                { file && <Progress file = {file} setFile = {setFile} setFileURL = {setFileURL}/>}
+                            </div>
+                            <TextField style={{width: '70%', marginTop: '1em'}} label="Event Title" value = {title} onChange = {(e)=>setTitle(e.target.value)}></TextField>
+                            <div className="event-type">
+                                {/* <span className="new-event-input-label">Event Type</span> */}
+                                <div className="event-type-buttons">
+                                    <div className={`type-button ${isVirtual ? '' : 'active-button'}`} onClick={()=>setVirtual(false)}>In-Person</div>
+                                    <div className={`type-button ${isVirtual ? 'active-button' : ''}`} onClick={()=>setVirtual(true)}>Virtual</div>
+                                </div>
+                            </div>
+                            <div className="dates">
+                                <div className="new-event-date-group">
+                                    <TextField
+                                        label="Start Date & Time"
+                                        type="datetime-local"
+                                        // className={classes.textField}
+                                        onChange={(e)=> setDate(e.target.value)}
+                                        InputLabelProps={{
+                                          shrink: true,
+                                        }}
+                                
+                                    />
+                                </div>
+                                <div className="new-event-date-group">
+                                    <TextField
+                                        label="End Date & Time"
+                                        type="datetime-local"
+                                        // className={classes.textField}
+                                        onChange={(e)=> setEnd(e.target.value)}
+                                        InputLabelProps={{
+                                          shrink: true,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="new-event-input-group">
+                            { isVirtual ? 
+                                <div>
+                                
+                                <TextField
+                                type='text'
+                                name='location'
+                                label='Video Meeting Link'
+                                style={{width: '70%', marginTop: '1em'}}
+                                value={location}
+                                onChange={(e)=>setLocation(e.target.value)}/>
+                                </div>
+
+                                :
+                                <div>
+                                
+                                <AutoComplete setLocation = {setLocation} />
+                                </div>
+                            }
                     
-                    <input
-                    type='text'
-                    name='location'
-                    placeholder='1234 A BLVD'
-                    value={location}
-                    onChange={(e)=>setLocation(e.target.value)}/>
-                    </AutoComplete>
-                    <hr/>
-                </div>
-
-                <div className="new-event-input-group">
-                    <label for = 'description'>Event Description</label>
-                    <textarea name='description'
-                    value={description}
-                    onChange={(e)=>setDescription(e.target.value)}
-                    rows='5'></textarea>
-                </div>
-
-                <button className="submit-button" type='submit'>Create Event</button>
-            </form>
+                            </div>
+                            <div className="new-event-input-group">
+                                <label for = 'description'>Event Description</label>
+                                <textarea name='description'
+                                value={description}
+                                onChange={(e)=>setDescription(e.target.value)}
+                                rows='5'></textarea>
+                            </div>
+                            <button className="submit-button" type='submit'>Create Event</button>
+                        </form>
+                    </CardContent>
+                </Card>
+            </Paper>
             <style jsx>{`
                 .top-level {
                     display: flex;
@@ -237,7 +258,7 @@ function NewEvent () {
                     font-size: 1em;
                 }
             `}</style>
-        </div>
+        </Container>
     )
 } 
 

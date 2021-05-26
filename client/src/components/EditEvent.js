@@ -1,7 +1,8 @@
 import { useState, useEffect} from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import AutoComplete from './AutoComplete';
-import Progress from './ProgressPerc'
+import Progress from './ProgressPerc';
+import { Paper, Container, CardMedia, Card, CardContent, Typography, Button, TextField } from '@material-ui/core';
 
 function EditEvent () {
     
@@ -96,74 +97,99 @@ function EditEvent () {
             }
         })
     }
-
+    
     return (
-        <div className="top-level">
-            <div className="title-banner">
+        <Container componennt="main" maxWidth='md' style={{marginTop: '1em', padding: '1em'}}>
+            <div className="title-banner" style={{textAlign: 'center'}}>
                 <h1 className="title">Edit Event</h1>
                 <hr/>
             </div>
-            <div className="image-banner">
-                <img src={image} alt='park'></img>
-            </div>
-            <form onSubmit={editHandler} className="edit-event-form">
-            <input type = 'file' accept = 'image/*' onChange = {imageChoose}></input>
-            <div>
-                { fileError && <div> {fileError} </div>}
-                { file && <Progress file = {file} setFile = {setFile} setFileURL = {setFileURL}/>}
-            </div>
-                <div className="edit-event-input-group">
-                    <span className="edit-event-input-label">Event Title</span>
-                    <input 
-                    type='text'
-                    placeholder='Ex: Cyber Security Talk'
-                    value={title} 
-                    onChange={(e)=>setTitle(e.target.value)}
-                    />
-                    <hr/>
-                </div>
-                
-                <div className="event-type">
-                    <span className="edit-event-input-label">Event Type</span>
-                    <div className="event-type-buttons">
-                        <div className={`type-button ${isvirtual ? '' : 'active-button'}`} onClick={()=>setVirtual(false)}>In-Person</div>
-                        <div className={`type-button ${isvirtual ? 'active-button' : ''}`} onClick={()=>setVirtual(true)}>Virtual</div>
-                    </div>
-                </div>
-                <div className="dates">
-                    <div className="edit-event-date-group">
-                        <span className="edit-event-input-label">Start Date & Time</span>
-                        <input value={dateInputParser(time_start)} type='datetime-local' onChange={(e)=> set_time_start(e.target.value)}/>
-                    </div>
-                    <div className="edit-event-date-group">
-                        <span className="edit-event-input-label">End Date & Time</span>
-                        <input value={dateInputParser(time_end)} type='datetime-local' name='dateEnd' onChange={(e)=> set_time_end(e.target.value)}/>
-                    </div>
-                </div>
-                <hr style={{width: '100%'}}/>
-                <div className="edit-event-input-group">
-                    <p>{location}</p>
-                    <AutoComplete setLocation = {setLocation}>
-                    <label htmlFor='location'>Location/Meeting Link</label>
-                    <input
-                    type='text'
-                    name='location'
-                    placeholder='1234 A BLVD'
-                    value={location}
-                    onChange={(e)=>setLocation(e.target.value)}/>
-                    </AutoComplete>
-                <hr/>
-                </div>
+            <Paper elevation={3} style={{width: '100%', height: '100%'}}>
+                <Card>
+                    <CardMedia src={image} alt='park' component='img' height='300'/>
+                    <CardContent style={{textAlign: 'center'}}>
+                        <input type = 'file' accept = 'image/*' onChange = {imageChoose} id = 'contained-button-file' style={{display: 'none'}}></input>
+                        <label htmlFor="contained-button-file">
+                            <Button variant="contained" color="primary" component="span" style={{background: 'black'}}>
+                                Upload
+                            </Button>
+                        </label>
+                        <form onSubmit={editHandler} >
+                            <div>
+                                { fileError && <div> {fileError} </div>}
+                                { file && <Progress file = {file} setFile = {setFile} setFileURL = {setFileURL}/>}
+                            </div>
+                            <TextField style={{width: '70%', marginTop: '1em'}} label="Event Title" value = {title} onChange={(e)=>setTitle(e.target.value)} />
+                            <div className="event-type">
+                                <div className="event-type-buttons">
+                                    <div className={`type-button ${isvirtual ? '' : 'active-button'}`} onClick={()=>setVirtual(false)}>In-Person</div>
+                                    <div className={`type-button ${isvirtual ? 'active-button' : ''}`} onClick={()=>setVirtual(true)}>Virtual</div>
+                                </div>
+                            </div>
+                            <div className="dates">
+                                <div className="edit-event-date-group">
+                                    <TextField 
+                                        label="Start Date & Time"
+                                        type="datetime-local"
+                                        onChange={(e)=> set_time_start(e.target.value)}
+                                        value={dateInputParser(time_start)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                    
+                                </div>
+                                <div className="edit-event-date-group">
+                                    <TextField 
+                                        label="End Date & Time"
+                                        type="datetime-local"
+                                        onChange={(e)=> set_time_end(e.target.value)}
+                                        value={dateInputParser(time_end)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="new-event-input-group">
+                            { isvirtual ? 
+                                <div>
+                                
+                                <TextField
+                                type='text'
+                                name='location'
+                                label='Video Meeting Link'
+                                style={{width: '70%', marginTop: '1em'}}
+                                value={location}
+                                onChange={(e)=>setLocation(e.target.value)}/>
+                                </div>
 
-                <div className="edit-event-input-group">
-                    <label htmlFor='description'>Event Description</label>
-                    <textarea name='description'
-                    value={description}
-                    onChange={(e)=>setDescription(e.target.value)}
-                    rows='5'></textarea>
-                </div>
+                                :
+                                <div>
+                                <p>{location}</p>
+                                <AutoComplete setLocation = {setLocation} />
+                                </div>
+                            }
+                    
+                            </div>
+                            <div className="edit-event-input-group">
+                                <label htmlFor='description'>Event Description</label>
+                                <textarea name='description'
+                                value={description}
+                                onChange={(e)=>setDescription(e.target.value)}
+                                rows='5'></textarea>
+                            </div>
 
                 <button className="submit-button" type='submit'>Submit Changes</button>
+                        </form>
+                    </CardContent>
+                </Card>
+            </Paper>
+            
+            <form onSubmit={editHandler} className="edit-event-form">
+                
+
+                
             </form>
             <style jsx>{`
                 .top-level {
@@ -259,7 +285,7 @@ function EditEvent () {
                     font-size: 1em;
                 }
             `}</style>
-        </div>
+        </Container>
     )
 } 
 
