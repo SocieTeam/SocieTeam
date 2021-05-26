@@ -9,6 +9,7 @@ import edit from '../assets/images/edit.svg'
 import editLite from '../assets/images/editLite.svg'
 import closeLite from '../assets/images/closeLite.svg'
 import checkLite from '../assets/images/checkLite.svg'
+import { Paper, Container, CardMedia, Card, CardContent, Typography } from '@material-ui/core';
 
 function Event () {
 
@@ -93,13 +94,16 @@ function Event () {
 
 
     return (
-        <div className="top-level">
-            <div className="back-button" onClick={() => {history.goBack()}}><img src={back}/><span>Back</span></div>
-            <div className="image-banner">
-                <img src={event.image} alt='park'></img>
-            </div>
-            <section className="info-section">
-                <h2 className="title">{event.title}</h2>
+        <Container component='main' maxWidth='md' style={{marginTop: '1em', padding: '1em'}}>
+        <Paper className="top-level" elevation={3} style={{width: '100%', height: '100%'}}>
+            
+            
+            <Card>
+                <CardMedia src={event.image} alt='park' component='img' height='300'/>
+                <CardContent>
+                    <Typography gutterBottom variant='h5' component='h2'><b>{event.title}</b></Typography>
+
+                    <section className="info-section">
                 <div className="info-wrapper">
                     <div className="label-wrapper">
                         <img className="icon" src={clock}/>
@@ -118,19 +122,24 @@ function Event () {
                 </div>
                 <div className="info-wrapper">
                     <div className="label-wrapper">
-                        <img className="icon" src={event.isvirtual ? video : location}/>
-                        <span className="info-label">{event.isvirtual ? 'Virtual Event' : 'In-Person Event'}</span>
-                    </div>
-                    <span className="location">{event.location}</span><br></br>
-                    {<iframe src={`https://www.google.com/maps/embed/v1/search?q=${query}&key=${process.env.REACT_APP_GOOGLEAPI}`}></iframe>}
-                </div>
-                <div className="info-wrapper">
-                    <div className="label-wrapper">
                         <img className="icon" src={edit}/>
                         <span className="info-label">Description</span>
                     </div>
                     <span className="description">{event.description ? event.description : <i>The event organizer did not include a description.</i>}</span>
                 </div>
+                <div className="info-wrapper">
+                    <div className="label-wrapper">
+                        <img className="icon" src={event.isvirtual ? video : location}/>
+                        <span className="info-label">{event.isvirtual ? 'Virtual Event' : 'In-Person Event'}</span>
+                    </div>
+                    <span className="location">{event.location}</span><br></br>
+                    {   
+                        event.isvirtual ? <p>{location}</p> :
+                        <iframe src={`https://www.google.com/maps/embed/v1/search?q=${query}&key=${process.env.REACT_APP_GOOGLEAPI}`} style={{width: '100%'}}></iframe>
+                        
+                    }
+                </div>
+                
                 <div className="actions">
                     {
                         user.id === event.user_id ?
@@ -158,6 +167,11 @@ function Event () {
                     }
                 </div>
             </section>
+
+                </CardContent>
+            </Card>
+            {/* <div className="back-button" onClick={() => {history.goBack()}}><img src={back}/><span>Back</span></div> */}
+            
             
             <style jsx>{`
                 .top-level {
@@ -239,7 +253,8 @@ function Event () {
                    height: 60%;
                 }
             `}</style>
-        </div>
+        </Paper>
+        </Container>
     )
 } 
 

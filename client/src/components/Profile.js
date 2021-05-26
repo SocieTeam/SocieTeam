@@ -2,6 +2,7 @@ import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
 import Progress from './ProgressPerc';
 import { Avatar, makeStyles, Button } from '@material-ui/core';
+import { Paper, Container, CardMedia, Card, CardContent, TextField} from '@material-ui/core';
 
 function Profile () {
 
@@ -160,7 +161,7 @@ function Profile () {
     }));
     const classes = useStyles();
     return (
-        <div className="top-level">
+        <Container component='main' maxWidth='md' className="top-level" style={{marginTop: '1em'}}>
             <div className="title-and-avatar">
                     <Avatar src={image} className={classes.large}/>
                 <br></br>
@@ -172,7 +173,7 @@ function Profile () {
                 </label>
                 { fileError && <div> {fileError} </div>}
                 { file && <Progress file = {file} setFile = {setFile} setFileURL = {setImage}/>}
-                {loggedUser ? image === loggedUser.profile_pic ? null : <Button name="zipSave" onClick={saveHandler} style={{background: 'gray', color: 'white'}}>Save Profile Image</Button> : null}
+                {loggedUser ? image === loggedUser.profile_pic ? null : <Button name="zipSave" onClick={saveHandler} style={{background: '#149D02', color: 'white', marginLeft: '1em'}}>Save Profile Image</Button> : null}
                 <div className="title">
                     <h1>Account Management</h1>
                     <hr/>
@@ -190,17 +191,17 @@ function Profile () {
                 <div className="account-input-group">
                     <span className="account-input-label">Username</span>
                     <div className="account-input-wrapper">
-                        <input onChange={changeHandler} value={username} disabled={!usernameEdit} name="username" className="account-input-field"/>
+                        <input onChange={changeHandler} value={username} disabled={!usernameEdit} name="username" className="account-input-field" style={{width: '70%'}}/>
                         <div className="account-input-options">
                             {
                                 usernameEdit ? 
                                 <div>
-                                    <Button name="usernameCancel" onClick={cancelHandler} style={{background: 'gray', color: 'white'}}>Cancel</Button>
-                                    <Button name="usernameSave" onClick={saveHandler} style={{background: 'gray', color: 'white'}}>Save</Button>
+                                    <Button name="usernameCancel" onClick={cancelHandler} style={{background: '#DF0C0C', color: 'white'}}>Cancel</Button>
+                                    <Button name="usernameSave" onClick={saveHandler} style={{background: '#149D02', color: 'white', marginLeft: '2em'}}>Save</Button>
                                 </div>
                                 :
                                 <div>
-                                    <Button name="usernameEdit" onClick={editHandler} style={{background: 'gray', color: 'white'}}>Edit</Button>
+                                    <Button name="usernameEdit" onClick={editHandler} style={{background: '#81C1BF', color: 'white'}}>Edit</Button>
                                 </div>
                             }
                         </div>
@@ -215,12 +216,12 @@ function Profile () {
                             {
                                 zipCodeEdit ? 
                                 <div>
-                                    <Button name="zipCancel" onClick={cancelHandler} style={{background: 'gray', color: 'white'}}>Cancel</Button>
-                                    <Button name="zipSave" onClick={saveHandler} style={{background: 'gray', color: 'white'}}>Save</Button>
+                                    <Button name="zipCancel" onClick={cancelHandler} style={{background: '#DF0C0C', color: 'white'}}>Cancel</Button>
+                                    <Button name="zipSave" onClick={saveHandler} style={{background: '#149D02', color: 'white', marginLeft: '2em'}}>Save</Button>
                                 </div>
                                 :
                                 <div>
-                                    <Button name="zipEdit" onClick={editHandler} style={{background: 'gray', color: 'white'}}>Edit</Button>
+                                    <Button name="zipEdit" onClick={editHandler} style={{background: '#81C1BF', color: 'white'}}>Edit</Button>
                                 </div>
                             }
                         </div>
@@ -229,9 +230,8 @@ function Profile () {
                 </div>
             </section>
 
-            <section className="actions">
-                <h2>Actions</h2>
-                <Button onClick={logoutHandler} color='primary' variant='contained' style={{background: 'red'}}>Logout</Button>
+            <section className="actions" style={{display: 'flex', alignItems: 'center'}}>
+                <Button onClick={logoutHandler} color='primary' variant='contained' style={{background: '#DF0C0C', width: '70%'}}>Logout</Button>
                 {/* <button disabled>Reset Password</button>
                 <button disabled>Delete Account</button> */}
             </section>
@@ -282,9 +282,10 @@ function Profile () {
                 .account-input-field {
                     flex: 1;
                     border-width: 0px;
+                    margin-right: 5em;
                 }
             `}</style>
-        </div>
+        </Container>
     )
 }
 
