@@ -1,10 +1,12 @@
 import StateContext from './contexts/StateContext'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import icon from '../assets/images/user.svg'
+import icon from '../assets/images/user.svg';
+import {useHistory} from 'react-router-dom'
+import { AppBar, Toolbar, Button, Typography, makeStyles, Avatar} from '@material-ui/core'
 
 function Navbar () {
-
+    const history = useHistory()
     const { navbarLinks, loggedUser } = useContext(StateContext)
     
     const linkMap = {
@@ -25,13 +27,58 @@ function Navbar () {
             name: 'Event Feed'
         }
     }
+
+    function clickHandler (path) {
+        history.push(path)
+    }
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+          flexGrow: 1,
+        },
+        menuButton: {
+          marginRight: theme.spacing(2),
+        },
+        title: {
+          flexGrow: 1,
+        },
+      }));
+    const classes = useStyles();
     
     return (
-        <nav className="navbar">
-            <div className="logo-banner">
-                <h1>SocieTeam</h1>
-            </div>
-            <div className="links-and-user">
+        <AppBar className="navbar" position='static' style={{background: 'black'}}>
+            <Toolbar>
+                <Typography variant="h6" className={classes.title}>
+                    SocieTeam
+                </Typography>
+
+
+
+                {
+                    navbarLinks.map(link => {
+                        return (
+                        <Button
+                        style={{color: 'white'}}    
+                        onClick={()=>clickHandler(linkMap[link].route)}
+                        key={ link }>
+                            { linkMap[link].name }
+                        </Button>
+                        )
+                    })
+                }
+                { loggedUser ? 
+                    <Avatar src={loggedUser.profile_pic} 
+                        onClick={()=>clickHandler('/account')}
+                    />
+                    : null
+                }
+
+
+
+                {/* <Button color="inherit">Events Feed</Button>
+                <Button color="inherit">Events Manager</Button> */}
+            </Toolbar>
+            {/* <div className="links-and-user">
                 <div className="links-section">
                     {
                         navbarLinks.map(link => {
@@ -59,47 +106,8 @@ function Navbar () {
                         </Link>
                     </div> : null
                 }
-            </div>
-            <style jsx>{`
-                .navbar {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    background-color: black;
-                    color: white;
-                    padding: 0 1em;
-                    border-bottom: 0.25em solid white;
-                }
-                .logo-banner h1 {
-                    font-size: 1em;
-                }
-                .nav-link {
-                    display: flex;
-                    justify-content: center;
-                    margin-left: 1em;
-                }
-                .links-and-user {
-                    display: flex;
-                    align-items: center;
-                    font-size: 0.5em;
-                }
-                .links-section {
-                    display: flex;
-                }
-                .logged-user {
-                    margin-left: 1em;
-                }
-                .user-avatar {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 2em;
-                    height: 2em;
-                    border-radius: 1.5em;
-                    background-color: lightgrey;
-                }
-            `}</style>
-        </nav>
+            </div>     */}
+        </AppBar>
     )
 }
 

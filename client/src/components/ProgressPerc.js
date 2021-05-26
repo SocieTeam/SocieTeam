@@ -9,11 +9,16 @@ const Progress = ({file, setFile, setFileURL}) => {
             setFileURL(url);
         }
     }, [url, setFileURL])
-    return (
-        <div>
-            {`${progress}%`}
-        </div>
-    )
+    if (progress === 100 || !progress) {
+        return null;
+    }
+    else{
+        return (
+            <div>
+                {`${progress}%`}
+            </div>
+        )
+    }
 }
 
 export default Progress;

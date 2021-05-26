@@ -2,7 +2,7 @@ import StateContext from './contexts/StateContext'
 import ReservationCard from './cards/reservationCard';
 import { useState, useEffect, useContext } from 'react';
 import OtherEventCard from './cards/otherEventsCard';
-import {Container, Card, CardContent, Typography, GridList} from '@material-ui/core';
+import {Container, Card, CardContent, Typography, GridList, makeStyles} from '@material-ui/core';
 
 function EventFeed() {
 
@@ -40,17 +40,34 @@ function EventFeed() {
         })
     }, [loggedUser])
 
+    const useStyles = makeStyles((theme) => ({
+        root: {
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-evenly',
+          overflow: 'hidden',
+          backgroundColor: theme.palette.background.paper,
+        },
+        gridList: {
+          flexWrap: 'nowrap',
+          // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+          transform: 'translateZ(0)',
+        }
+      }));
+
+      const classes = useStyles()
+
     return (
         <Container component='main' maxWidth='md'>
             <div className="title-banner">
                 <h1>Event Feed</h1>
             </div>
             <h3 style={{textAlign: 'center'}}>Upcoming Reservations</h3>
-            <div className="reservations" style={{textAlign: 'center'}}>
+            <div className={classes.root} style={{textAlign: 'center'}}>
                 
                 
                 {   reservations.length ?
-                    <GridList cols='2.5'>
+                    <GridList cols='2.5' className={classes.gridList}>
                         {reservations.map(event => <ReservationCard key={event.title} event={event}/>)}
                     </GridList>
                     :

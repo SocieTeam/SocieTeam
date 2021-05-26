@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import {GridList, GridListTile, GridListTileBar} from '@material-ui/core';
+import { GridListTile, GridListTileBar, makeStyles } from '@material-ui/core';
 
 function ReservationCard(props) {
 
@@ -11,8 +11,9 @@ function ReservationCard(props) {
         history.push(`/event/${id}`)
     }
 
+
     return (
-        <GridListTile onClick={clickHandler} className="feed-reservation-card" style={{maxWidth: '200px', maxHeight: '200px'}}>
+        <GridListTile onClick={clickHandler} className="feed-reservation-card" style={{maxWidth: '200px', maxHeight: '200px', marginRight:'1em'}}>
             <img src={image} alt = 'event'></img>
             <GridListTileBar className="card-details" title = {`${title}, ${new Date(time_start).toLocaleDateString()}`}>
                 <span className="card-date">{new Date(time_start).toLocaleDateString()}</span>

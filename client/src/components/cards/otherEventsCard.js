@@ -13,7 +13,7 @@ function OtherEventCard (props) {
     }
 
     return (
-        <Card onClick={eventClickHandler} style={{maxWidth: '345'}} variant='outlined'>
+        <Card onClick={eventClickHandler} style={{maxWidth: '345'}} variant='outlined' style={{marginBottom:"2em"}}>
             <CardActionArea>
                 <CardMedia 
                     component="img"
