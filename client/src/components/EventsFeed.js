@@ -33,7 +33,7 @@ function EventFeed() {
                 console.log('something got fudged')
             }
         })
-        fetch(`${process.env.REACT_APP_API_URL}/events`)
+        fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}/feed`)
         .then(results => results.json())
         .then(data => {
             setEvents(data);

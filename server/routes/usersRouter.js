@@ -21,4 +21,7 @@ router.post('/login', userController.login);
 // PATCH: /users/:id (updateUser)
 router.patch('/:id', auth, userController.updateUser);
 
+// GET: /users/:id/feed
+router.get('/:id/feed', userController.getFeed)
+
 module.exports = router;
