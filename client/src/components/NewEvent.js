@@ -2,6 +2,7 @@ import StateContext from './contexts/StateContext'
 import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Progress from './ProgressPerc';
+import AutoComplete from './AutoComplete'
 
 function NewEvent () {
 
@@ -120,20 +121,20 @@ function NewEvent () {
                     </div>
                 </div>
                 <hr style={{width: '100%'}}/>
-                <div className="location-input-group">
-                    <div style={{width: '60%'}} className="inner-group">
-                        <label for='location'>Location/Meeting Link</label>
-                        <input
-                        type='text'
-                        name='location'
-                        placeholder='Ex. 100 Sample Road'
-                        value={location}
-                        onChange={(e)=>setLocation(e.target.value)}/>
-                    </div>
-                    <div className="inner-group zip-group">
-                        <span className="new-event-input-label">Zip Code</span>
-                        <input placeholder="Ex. 10001" onChange={(e)=>setZip(e.target.value)} name="zip"/>
-                    </div>
+
+                <div className="new-event-input-group">
+                    <AutoComplete setLocation = {setLocation}>
+                    <label for='location'>Location/Meeting Link</label>
+                    
+                    <input
+                    type='text'
+                    name='location'
+                    placeholder='1234 A BLVD'
+                    value={location}
+                    onChange={(e)=>setLocation(e.target.value)}/>
+                    </AutoComplete>
+                    <hr/>
+
                 </div>
 
                 <div className="new-event-input-group">
