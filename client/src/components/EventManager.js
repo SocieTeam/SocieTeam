@@ -99,7 +99,7 @@ function EventManager () {
                     width: 100%;
                     flex: 1;
                     align-items: center;
-                    border: 1px solid black;
+                    
                     margin-top: 1em;
                     overflow-y: hidden;
                 }

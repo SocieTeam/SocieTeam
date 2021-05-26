@@ -2,6 +2,7 @@ import StateContext from './contexts/StateContext'
 import ReservationCard from './cards/reservationCard';
 import { useState, useEffect, useContext } from 'react';
 import OtherEventCard from './cards/otherEventsCard';
+import {Container, Card, CardContent, Typography, GridList, makeStyles} from '@material-ui/core';
 
 function EventFeed() {
 
@@ -39,15 +40,42 @@ function EventFeed() {
         })
     }, [loggedUser])
 
+    const useStyles = makeStyles((theme) => ({
+        root: {
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-evenly',
+          overflow: 'hidden',
+          backgroundColor: theme.palette.background.paper,
+        },
+        gridList: {
+          flexWrap: 'nowrap',
+          // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+          transform: 'translateZ(0)',
+        }
+      }));
+
+      const classes = useStyles()
+
     return (
-        <div className="top-level">
+        <Container component='main' maxWidth='md'>
             <div className="title-banner">
                 <h1>Event Feed</h1>
             </div>
             <h3 style={{textAlign: 'center'}}>Upcoming Reservations</h3>
-            <div className="reservations">
-                {
-                    reservations.map(event => <ReservationCard key={event.title} event={event}/>)
+            <div className={classes.root} style={{textAlign: 'center'}}>
+                
+                
+                {   reservations.length ?
+                    <GridList cols='2.5' className={classes.gridList}>
+                        {reservations.map(event => <ReservationCard key={event.title} event={event}/>)}
+                    </GridList>
+                    :
+                    <Card variant='outlined'>
+                        <CardContent>
+                            <Typography>You Have No Reservations</Typography>
+                        </CardContent>
+                    </Card>
                 }
             </div>
             <h3 style={{textAlign: 'center'}}>Discover Events</h3>
@@ -56,38 +84,7 @@ function EventFeed() {
                     events.map(event => <OtherEventCard key={event.title} event={event}/>)
                 }
             </div>
-            <style jsx>{`
-                .top-level {
-                    display: flex;
-                    flex-direction: column;
-                    overflow-y: scroll;
-                    height: 100%;
-                    padding: 0.5em;
-                }
-                .title-banner {
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 1em;
-                }
-                .title-banner h1 {
-                    margin: 0;
-                    border-bottom: 1px solid black;
-                }
-                .reservations {
-                    height: 15em;
-                    display: flex;
-                    align-items: center;
-                    border: 1px solid black;
-                    overflow-x: scroll;
-                    padding: 0.5em;
-                    flex-shrink: 0;
-                }
-                .events {
-                    padding: 0 0.5em 0.5em 0.5em;
-                    border: 1px solid black;
-                }
-            `}</style>
-        </div>
+        </Container>
     )
 }
 

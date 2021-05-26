@@ -1,6 +1,8 @@
 import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import {TextField, Container, Button} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 
 function SignUp () {
 
@@ -33,43 +35,71 @@ function SignUp () {
         })
     }
 
-    function changeHandler (e) {
-        switch (e.target.name) {
-            case 'email':
-                setEmail(e.target.value)
-                break;
-            case 'username':
-                setUsername(e.target.value)
-                break;
-            case 'password':
-                setPassword(e.target.value)
-                break;
-            default:
-        }
-    }
+    // function changeHandler (e) {
+    //     switch (e.target.name) {
+    //         case 'email':
+    //             setEmail(e.target.value)
+    //             break;
+    //         case 'username':
+    //             setUsername(e.target.value)
+    //             break;
+    //         case 'password':
+    //             setPassword(e.target.value)
+    //             break;
+    //         default:
+    //     }
+    // }
+
+    const CssTextField = withStyles({
+        root: {
+            '& label.Mui-focused': {
+                color: 'black',
+              },
+            '& .MuiOutlinedInput-root': {
+                '&.Mui-focused fieldset': {
+                borderColor: 'black',
+                }
+            }
+        },
+      })(TextField);
 
     return (
-        <div className="top-level">
-            <div className="name-jumbotron">Sign Up</div>
-            <div className="signup-form-background">
-                <form onChange={changeHandler} className="signup-form" onSubmit={submitHandler}>
-                    <div className="input-group">
-                        <span>Email</span>
-                        <input name="email"></input>
-                    </div>
-                    <div style={{marginTop: '1em'}} className="input-group">
-                        <span>Username</span>
-                        <input name="username"></input>
-                    </div>
-                    <div style={{marginTop: '1em'}} className="input-group">
-                        <span>Password</span>
-                        <input name="password" type="password"></input>
-                    </div>
-                    <button style={{marginTop: '3em'}} type="submit">REGISTER</button>
+        <Container component='main' maxWidth='sm'>
+            <h1>Sign Up</h1>
+                <form onSubmit={submitHandler} style={{width: '100%'}}>
+                    <TextField
+                        fullWidth
+                        label="Email"
+                        variant="outlined"
+                        id="email"
+                        value = {email}
+                        onChange={(e)=>setEmail(e.target.value)}
+                    />
+                    <TextField 
+                        style={{marginTop: '2em'}}
+                        fullWidth
+                        label="Username"
+                        variant="outlined"
+                        id='username'
+                        value = {username}
+                        onChange={(e)=>setUsername(e.target.value)}
+                        autoComplete='username'
+                    />
+                    <TextField 
+                        style={{marginTop: '2em'}}
+                        id='password'
+                        fullWidth
+                        label='password'
+                        variant='outlined'
+                        type='password'
+                        value={password}
+                        onChange={(e)=>setPassword(e.target.value)}
+                        autoComplete='current-password'
+                    />
+                    <Button fullWidth variant='contained' color='primary' style={{marginTop: '3em'}} type="submit">REGISTER</Button>
                 </form>
-            </div>
 
-            <style jsx>{`
+            {/* <style jsx>{`
                 .top-level {
                     display: flex;
                     flex-direction: column;
@@ -124,8 +154,8 @@ function SignUp () {
                     display: flex;
                     flex-direction: column;
                 }
-            `}</style>
-        </div>
+            `}</style> */}
+        </Container>
     )
 }
 

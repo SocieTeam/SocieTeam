@@ -1,6 +1,7 @@
 import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
 import Progress from './ProgressPerc';
+import { Avatar, makeStyles, Button } from '@material-ui/core';
 
 function Profile () {
 
@@ -48,7 +49,7 @@ function Profile () {
     }
 
     function editHandler (e) {
-        switch (e.target.name) {
+        switch (e.target.parentNode.name) {
             case 'usernameEdit':
                 setUsernameEdit(true)
                 setTimeout(() => {document.querySelector("input[name='username']").focus()}, 1)
@@ -74,7 +75,7 @@ function Profile () {
     }
 
     function cancelHandler (e) {
-        switch (e.target.name) {
+        switch (e.target.parentNode.name) {
             case 'usernameCancel':
                 setUsername(loggedUser.username)
                 setUsernameEdit(false)
@@ -88,6 +89,7 @@ function Profile () {
     }
 
     function saveHandler (e) {
+        console.log(e.target.parentNode.name);
         const options = {
             method: 'PATCH',
             headers: {
@@ -95,7 +97,7 @@ function Profile () {
                 'Content-Type': 'application/json'
             }
         }
-        if (e.target.name === 'usernameSave') {
+        if (e.target.parentNode.name === 'usernameSave') {
             options.body = JSON.stringify({username, email, zip})
             fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}`, options)
             .then(res => {
@@ -109,7 +111,22 @@ function Profile () {
                     console.log('username already taken')
                 }
             })
-        } else if (e.target.name === 'zipSave') {
+        } else if (e.target.parentNode.name === 'zipSave') {
+            options.body = JSON.stringify({zip, profile_pic: image})
+            fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}`, options)
+            .then(res => {
+                if (res.ok) {
+                    res.json().then(json => {
+                        setLoggedUser(json.user)
+                        setZip(json.user.zip)
+                        setZipCodeEdit(false)
+                    })
+                } else {
+                    console.log('something went wrong with the zip')
+                }
+            })
+        }
+        else if (e.target.innerText === 'SAVE PROFILE IMAGE') {
             options.body = JSON.stringify({zip, profile_pic: image})
             fetch(`${process.env.REACT_APP_API_URL}/users/${loggedUser.id}`, options)
             .then(res => {
@@ -131,16 +148,31 @@ function Profile () {
         window.location.reload()
     }
 
+    const useStyles = makeStyles((theme) => ({
+        small: {
+          width: theme.spacing(3),
+          height: theme.spacing(3),
+        },
+        large: {
+          width: theme.spacing(7),
+          height: theme.spacing(7),
+        },
+    }));
+    const classes = useStyles();
     return (
         <div className="top-level">
             <div className="title-and-avatar">
-                <div className="avatar">
-                    <img src = {image} width = '100%'></img>
-                </div>
-                <input type = 'file' accept = 'image/*' onChange = {imageChoose}></input>
+                    <Avatar src={image} className={classes.large}/>
+                <br></br>
+                <input type = 'file' accept = 'image/*' onChange = {imageChoose} id="contained-button-file" style={{display: 'none'}}></input>
+                <label htmlFor="contained-button-file">
+                    <Button variant="contained" color="primary" component="span" style={{background: 'black'}}>
+                        Upload
+                    </Button>
+                </label>
                 { fileError && <div> {fileError} </div>}
                 { file && <Progress file = {file} setFile = {setFile} setFileURL = {setImage}/>}
-                <button name="zipSave" onClick={saveHandler}>Save</button>
+                {loggedUser ? image === loggedUser.profile_pic ? null : <Button name="zipSave" onClick={saveHandler} style={{background: 'gray', color: 'white'}}>Save Profile Image</Button> : null}
                 <div className="title">
                     <h1>Account Management</h1>
                     <hr/>
@@ -163,12 +195,12 @@ function Profile () {
                             {
                                 usernameEdit ? 
                                 <div>
-                                    <button name="usernameCancel" onClick={cancelHandler}>Cancel</button>
-                                    <button name="usernameSave" onClick={saveHandler}>Save</button>
+                                    <Button name="usernameCancel" onClick={cancelHandler} style={{background: 'gray', color: 'white'}}>Cancel</Button>
+                                    <Button name="usernameSave" onClick={saveHandler} style={{background: 'gray', color: 'white'}}>Save</Button>
                                 </div>
                                 :
                                 <div>
-                                    <button name="usernameEdit" onClick={editHandler}>Edit</button>
+                                    <Button name="usernameEdit" onClick={editHandler} style={{background: 'gray', color: 'white'}}>Edit</Button>
                                 </div>
                             }
                         </div>
@@ -183,12 +215,12 @@ function Profile () {
                             {
                                 zipCodeEdit ? 
                                 <div>
-                                    <button name="zipCancel" onClick={cancelHandler}>Cancel</button>
-                                    <button name="zipSave" onClick={saveHandler}>Save</button>
+                                    <Button name="zipCancel" onClick={cancelHandler} style={{background: 'gray', color: 'white'}}>Cancel</Button>
+                                    <Button name="zipSave" onClick={saveHandler} style={{background: 'gray', color: 'white'}}>Save</Button>
                                 </div>
                                 :
                                 <div>
-                                    <button name="zipEdit" onClick={editHandler}>Edit</button>
+                                    <Button name="zipEdit" onClick={editHandler} style={{background: 'gray', color: 'white'}}>Edit</Button>
                                 </div>
                             }
                         </div>
@@ -199,9 +231,9 @@ function Profile () {
 
             <section className="actions">
                 <h2>Actions</h2>
-                <button onClick={logoutHandler}>Logout</button>
-                <button disabled>Reset Password</button>
-                <button disabled>Delete Account</button>
+                <Button onClick={logoutHandler} color='primary' variant='contained' style={{background: 'red'}}>Logout</Button>
+                {/* <button disabled>Reset Password</button>
+                <button disabled>Delete Account</button> */}
             </section>
             <style jsx>{`
                 .top-level {
