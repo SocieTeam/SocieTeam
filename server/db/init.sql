@@ -8,7 +8,8 @@ CREATE TABLE Users(
 	username TEXT,
 	password TEXT,
 	zip TEXT,
-	profile_pic TEXT
+	profile_pic TEXT,
+	resetCode TEXT
 );
 
 CREATE TABLE Events(

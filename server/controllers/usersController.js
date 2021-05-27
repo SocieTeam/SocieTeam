@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {CustomError, errorHandler} = require('../middlewares/errors')
 const fetch = require("node-fetch");
+const nodemailer = require('nodemailer');
+const { request } = require('express');
 
 // Gets a user by id
 const getUser = async (req, res) => {
@@ -135,18 +137,53 @@ const getFeed = async (req, res) => {
     } catch (err) {
         errorHandler(res, err)
     }
+}
 
-    async function fetchCallRad() {
-        let dat = null;
-        await fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-        .then(res => res.json())
-        .then(data => {
-            dat = data;
-            
-        })
-        return dat;
+const sendEmail = async (req, res) => {
+    let user = await User.findUserByEmail(req.params.email)
+    if(user){
+        let code = Math.floor(1000 + Math.random() * 9000)
+        let transporter = nodemailer.createTransport({
         
+        service: 'gmail',
+        auth: {
+            user: 'societeam21@gmail.com',
+            pass: 'Goodpassword' // naturally, replace both with your real credentials or an application-specific password
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+      });
+    
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: '"SocieTeam" <societeam21@gmail.com>', // sender address
+        to: `${req.params.email}`, // list of receivers
+        subject: "SocieTeam Password Reset", // Subject line
+        text: "SocieTeam Password Reset", // plain text body
+        html: `<p>This is the code <b>${code}</b></p>`, // html body
+      });
+    
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    
+      // Preview only available when sending through an Ethereal account
+    //   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+      
+      const obj = {info: info.messageId, code: code}
+      res.status(200).json(obj)
     }
+    else {
+        res.json(req.params.email)
+    }
+}
+
+const resetPassword = async (req, res) => {
+    const user_id = await User.findUserByEmail(req.body.email)
+    let newPass = await bcrypt.hash(req.body.password, 10);
+    const user = await User.resetPass(user_id.id, newPass)
+
+    res.json(user);
 }
 
 module.exports = {
@@ -156,5 +193,7 @@ module.exports = {
     createUser,
     updateUser,
     login,
-    getFeed
+    getFeed,
+    sendEmail,
+    resetPassword
 };

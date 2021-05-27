@@ -22,6 +22,11 @@ router.post('/login', userController.login);
 router.patch('/:id', auth, userController.updateUser);
 
 // GET: /users/:id/feed
-router.get('/:id/feed', userController.getFeed)
+router.get('/:id/feed', userController.getFeed);
+
+//GET: SEND EMAIL
+router.get('/reset/:email', userController.sendEmail);
+
+router.post('/resetPassword', userController.resetPassword)
 
 module.exports = router;

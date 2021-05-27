@@ -11,6 +11,7 @@ import Home from './Home'
 import EditEvent from './EditEvent'
 import EventManager from './EventManager'
 import EventFeed from './EventsFeed';
+import PasswordReset from './PasswordReset'
 
 function App() {
 
@@ -43,7 +44,7 @@ function App() {
   }, [setNavbarLinks, setLoggedUser])
 
   return (
-    <div className="App">
+    <div className="App" >
       <Navbar/>
       <Switch>
         <Route exact path={['/']}>
@@ -72,6 +73,9 @@ function App() {
         </Route>
         <Route path={['/event-manager']}>
           <EventManager />
+        </Route>
+        <Route exact path={'/passwordReset'}>
+          <PasswordReset />
         </Route>
       </Switch>
       {/* <style jsx>{`
