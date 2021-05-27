@@ -30,7 +30,13 @@ export class MapContainer extends Component {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        // console.log('Success', latLng);
+        console.log('Success', latLng);
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.lat},${latLng.lng}&key=${process.env.REACT_APP_GOOGLEAPI}`)
+        .then(results=> results.json())
+        .then(data => {
+          let obj = data.results.find(el => el.types[0] === 'postal_code');
+          this.props.setZip(obj.address_components[0].long_name)
+        })
         this.props.setLocation(address)
         // update center state
         this.setState({ mapCenter: latLng });

@@ -2,10 +2,9 @@ const db = require("../db/config");
 
 class Event {
     static createEvent(event, user_id) {
-        const {title, location, time_start, time_end, isVirtual, description, image} = event;
-        const queryText = 'INSERT INTO Events (title, user_id, location, time_start, time_end, isVirtual, description, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *'
-        
-        return db.query(queryText, [title, user_id, location, time_start, time_end, isVirtual, description, image]).then(results => results.rows[0]);
+        const {title, location, time_start, time_end, isVirtual, description, image, zip} = event;
+        const queryText = 'INSERT INTO Events (title, user_id, location, time_start, time_end, isVirtual, description, image, zip) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *'
+        return db.query(queryText, [title, user_id, location, time_start, time_end, isVirtual, description, image, zip]).then(results => results.rows[0]);
     }
 
     static getEvent(event_id) {
@@ -47,10 +46,11 @@ class Event {
         const isVirtual = event.isvirtual;
         const description = event.description;
         const image = event.image;
+        const zip = event.zip
 
-        const queryText = 'UPDATE Events SET title = $1, location = $2, time_start = $3, time_end = $4, isvirtual = $5, description = $6, image = $7 WHERE id = $8';
+        const queryText = 'UPDATE Events SET title = $1, location = $2, time_start = $3, time_end = $4, isvirtual = $5, description = $6, image = $7, zip = $8 WHERE id = $9';
 
-        db.query(queryText, [title, location, time_start, time_end, isVirtual, description, image, event_id]);
+        db.query(queryText, [title, location, time_start, time_end, isVirtual, description, image, zip, event_id]);
         return db.query('SELECT * FROM Events WHERE id = $1', [event_id]).then(results => results.rows[0]);
     }
 

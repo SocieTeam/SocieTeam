@@ -4,7 +4,7 @@ import { Card, CardActionArea, CardActions, CardMedia, CardContent, Typography, 
 function OtherEventCard (props) {
 
     const { title, time_start, username, id, image, location } = props.event
-    console.log(props.event);
+    // console.log(props.event);
 
     const history = useHistory()
 

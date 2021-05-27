@@ -48,7 +48,7 @@ function Navbar () {
     return (
         <AppBar className="navbar" position='static' style={{background: 'black'}}>
             <Toolbar>
-                <Avatar src='https://firebasestorage.googleapis.com/v0/b/societeam-b90d7.appspot.com/o/logo-white.svg?alt=media&token=2400cd88-c9f4-4584-84b0-501bda92e750'/>
+                <Avatar src='https://firebasestorage.googleapis.com/v0/b/societeam-b90d7.appspot.com/o/logo-white.svg?alt=media&token=2400cd88-c9f4-4584-84b0-501bda92e750' onClick={()=>clickHandler('/')}/>
                 <Typography variant="h6" className={classes.title} style={{marginLeft: '1em'}}>
                     SocieTeam
                 </Typography>

@@ -10,6 +10,7 @@ import editLite from '../assets/images/editLite.svg'
 import closeLite from '../assets/images/closeLite.svg'
 import checkLite from '../assets/images/checkLite.svg'
 import { Paper, Container, CardMedia, Card, CardContent, Typography } from '@material-ui/core';
+import map from '../assets/images/map.svg';
 
 function Event () {
 
@@ -132,12 +133,19 @@ function Event () {
                         <img className="icon" src={event.isvirtual ? video : location}/>
                         <span className="info-label">{event.isvirtual ? 'Virtual Event' : 'In-Person Event'}</span>
                     </div>
-                    <span className="location">{event.location}</span><br></br>
+                    {/* <span className="location">{event.location}</span><br></br> */}
                     {   
-                        event.isvirtual ? <p>{location}</p> :
+                        event.isvirtual ? <p>{event.location}</p> :
                         <iframe src={`https://www.google.com/maps/embed/v1/search?q=${query}&key=${process.env.REACT_APP_GOOGLEAPI}`} style={{width: '100%'}}></iframe>
                         
                     }
+                    <div style={{flex: '1'}} >
+                        <div className="label-wrapper">
+                            <img className="icon" src={map}/>
+                            <span className="info-label">Zip</span>
+                        </div>
+                        <span className="zip">{event.zip}</span>
+                    </div>
                 </div>
                 
                 <div className="actions">
