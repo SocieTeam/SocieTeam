@@ -17,6 +17,7 @@ function NewEvent () {
     const [description, setDescription] = useState('')
     const [startDate, setDate] = useState('')
     const [endDate, setEnd] = useState('');
+    const [zip, setZip] = useState('')
 
     //FireBase UseStates ALSO checks to see if proper file is chosen
     const [file, setFile] = useState(null);
@@ -48,6 +49,7 @@ function NewEvent () {
             isVirtual,
             location,
             description,
+            zip,
             time_start: new Date(startDate),
             time_end: new Date(endDate),
             image: fileURL
@@ -142,12 +144,32 @@ function NewEvent () {
                                 style={{width: '70%', marginTop: '1em'}}
                                 value={location}
                                 onChange={(e)=>setLocation(e.target.value)}/>
+
+                                    <TextField 
+                                    type='text'
+                                    name='location'
+                                    label='Zip Code'
+                                    value={zip}
+                                    style={{width: '70%', marginTop: '1em'}}
+                                    onChange={(e)=>setZip(e.target.value)}
+                                    required
+                                    />
+
                                 </div>
 
                                 :
                                 <div>
                                 
-                                <AutoComplete setLocation = {setLocation} />
+                                    <AutoComplete setLocation = {setLocation} setZip={setZip}/>
+                                    
+                                    <TextField 
+                                    type='text'
+                                    name='location'
+                                    label='Zip Code'
+                                    value={zip}
+                                    style={{width: '70%', marginTop: '1em'}}
+                                    disabled
+                                    />
                                 </div>
                             }
                     

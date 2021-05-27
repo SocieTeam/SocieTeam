@@ -107,6 +107,11 @@ function EventManagerCard (props) {
                     height: 100%;
                     aspect-ratio: 1;
                 }
+                .card-image img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
                 .card-info {
                     margin-left: 1em;
                     display: flex;
