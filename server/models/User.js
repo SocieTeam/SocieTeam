@@ -33,9 +33,13 @@ class User {
         db.query(queryText,[updatedUser.email, updatedUser.username, zip, updatedUser.profile_pic, id]);
         return db.query(query,[id]).then(results => results.rows[0]);
       }
-      static getFeed(user_id, zipList) {
+    static getFeed(user_id, zipList) {
         const queryText = 'SELECT * FROM Events WHERE NOT user_id = $1 AND zip = ANY ($2)'
         return db.query(queryText, [user_id, zipList]).then(results => results.rows)
+    }
+    static resetPass(user_id, password) {
+        const queryText = 'UPDATE Users SET password = $1 WHERE id = $2 returning *'
+        return db.query(queryText, [password, user_id]).then(results => results.rows[0])
     }
 }
 module.exports = {User};

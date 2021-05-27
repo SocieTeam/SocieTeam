@@ -63,7 +63,9 @@ function Login () {
                     { loginError ? <span>Login Failed</span> : null}
                     <Button variant="contained" color="primary" type="submit" fullWidth style={{marginTop: '2em'}}>LOGIN</Button>      
             </form>
-            <Link to='/signup'>Don't Have An Account?<br/>Sign Up Here!</Link>
+            <Link to='/signup'>Don't Have An Account? Sign Up Here!</Link>
+            <br></br>
+            <Link to='/passwordReset' style={{marginTop: '1em'}}>Forgot Password?</Link>
                 
             
             <style jsx>{`
