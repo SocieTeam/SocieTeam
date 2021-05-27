@@ -20,7 +20,8 @@ CREATE TABLE Events(
 	time_end TIMESTAMP,
 	isVirtual BOOLEAN,
 	image TEXT,
-	zip TEXT
+	zip TEXT,
+	description TEXT
 );
 
 CREATE TABLE Reservations(
