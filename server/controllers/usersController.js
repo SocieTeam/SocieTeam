@@ -123,7 +123,7 @@ const getFeed = async (req, res) => {
         
 
        
-        fetch(`https://app.zipcodebase.com/api/v1/radius?apikey=c0611fb0-b99c-11eb-838c-b79938c662b0&code=11220&radius=10&unit=miles&country=us`)
+        fetch(`${ZIPCODE_BASE_BASE_URL}/radius?apikey=${process.env.ZIPCODE_BASE_API_KEY}&code=${user.zip}&radius=10&unit=miles&country=us`)
         .then(res => res.json())
         .then(async (json) => {
             const zipList = json.results.map(zip => zip.code)

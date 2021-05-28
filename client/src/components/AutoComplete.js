@@ -59,7 +59,7 @@ export class MapContainer extends Component {
                   placeholder: 'Search Places ...',
                   className: 'location-search-input',
                 })}
-                style={{width: '70%', marginTop: '1em'}}
+                style={{width: '70%', marginTop: '1em', fontFamily: 'Oswald'}}
               />
               {/* <input
                 {...getInputProps({
@@ -84,7 +84,7 @@ export class MapContainer extends Component {
                         style,
                       })}
                     >
-                      <span>{suggestion.description}</span>
+                      <span style={{fontFamily: 'Oswald'}}>{suggestion.description}</span>
                     </div>
                   );
                 })}
