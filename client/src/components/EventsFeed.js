@@ -61,10 +61,10 @@ function EventFeed() {
     return (
         <Container component='main' maxWidth='md'>
             <div className="title-banner">
-                <h1>Event Feed</h1>
+                <h1 style={{fontFamily: 'Lobster'}}>Event Feed</h1>
             </div>
             <h3 style={{textAlign: 'center'}}>Upcoming Reservations</h3>
-            <div className={classes.root} style={{textAlign: 'center'}}>
+            <div className={classes.root} style={{textAlign: 'center', background: '#f5f5f5'}}>
                 
                 
                 {   reservations.length ?

@@ -102,7 +102,7 @@ function Event () {
             <Card>
                 <CardMedia src={event.image} alt='park' component='img' height='300'/>
                 <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'><b>{event.title}</b></Typography>
+                    <Typography gutterBottom variant='h5' component='h2'><b style={{fontFamily: 'Lobster'}}>{event.title}</b></Typography>
 
                     <section className="info-section">
                 <div className="info-wrapper">
@@ -205,6 +205,7 @@ function Event () {
                     flex-direction: column;
                     flex: 1;
                     padding: 1.5em;
+                    font-family: 'Oswald'
                 }
                 .date {
                     margin-right: 3em;

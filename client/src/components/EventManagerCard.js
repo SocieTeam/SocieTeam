@@ -131,13 +131,17 @@ function EventManagerCard (props) {
                 .event-title {
                     font-weight: bold;
                     margin-bottom: 0.5em;
-                    font-size: 1.5em;
+                    font-size: 2em;
                 }
                 .option-icon {
                     width: 100%
                 }
                 .option-icon img {
                     width: 100%;
+                }
+                .event-info {
+                    font-family: 'Oswald';
+                    font-size: 1.5em;
                 }
             `}</style>
         </div>
