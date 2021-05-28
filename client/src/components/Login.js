@@ -1,7 +1,7 @@
 import StateContext from './contexts/StateContext'
 import { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import {TextField, Container, Button} from '@material-ui/core';
+import {TextField, Container, Button, Card, CardContent} from '@material-ui/core';
 
 function Login () {
 
@@ -55,12 +55,14 @@ function Login () {
 
     return (
         <Container component="main" maxWidth="sm" style={{marginTop: '2em'}}>
+            <Card elevation={3}>
+            <CardContent>
             <h1>Login</h1>
             <form className="login-form" onSubmit={submitHandler}>
                     <TextField id="userName" label="Username Or Email" fullWidth variant="outlined" value = {identity} onChange={(e)=>setIdentity(e.target.value)}/>
                     <TextField style={{marginTop: '2em'}} id="password" fullWidth label="Password" type="password" variant="outlined" value ={password} onChange={(e)=>setPassword(e.target.value)}/>
                     
-                    { loginError ? <span>Login Failed</span> : null}
+                    { loginError ? <span style={{color: 'red'}}>Login Failed</span> : null}
                     <Button variant="contained" color="primary" type="submit" fullWidth style={{marginTop: '2em'}}>LOGIN</Button>      
             </form>
             <Link to='/signup'>Don't Have An Account? Sign Up Here!</Link>
@@ -74,6 +76,8 @@ function Login () {
                     marginTop: 5em
                   }
             `}</style>
+            </CardContent>
+            </Card>
         </Container>
     )
 }

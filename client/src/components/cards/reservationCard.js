@@ -15,7 +15,7 @@ function ReservationCard(props) {
     return (
         <GridListTile onClick={clickHandler} className="feed-reservation-card" style={{maxWidth: '200px', maxHeight: '200px', marginRight:'1em'}}>
             <img src={image} alt = 'event'></img>
-            <GridListTileBar className="card-details" title = {`${title}, ${new Date(time_start).toLocaleDateString()}`}>
+            <GridListTileBar className="Event-Title" title = {`${title}, ${new Date(time_start).toLocaleDateString()}`}>
                 <span className="card-date">{new Date(time_start).toLocaleDateString()}</span>
             </GridListTileBar>
         </GridListTile>

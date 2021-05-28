@@ -44,7 +44,7 @@ function App() {
   }, [setNavbarLinks, setLoggedUser])
 
   return (
-    <div className="App" >
+    <div className="App" style={{background: '#f5f5f5', fontFamily: 'Lobster'}}>
       <Navbar/>
       <Switch>
         <Route exact path={['/']}>

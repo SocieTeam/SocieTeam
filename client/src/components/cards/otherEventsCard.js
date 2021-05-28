@@ -22,7 +22,7 @@ function OtherEventCard (props) {
                     image={image}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>{title}</Typography>
+                    <Typography gutterBottom variant='h5' component='h2' style={{fontFamily: 'Oswald, sans-serif'}} >{title}</Typography>
                     <Typography variant='body2' component='p' color='textSecondary'>{location}</Typography>
                     <Typography variant='body2' component='p' color='textSecondary'>{new Date(time_start).toLocaleDateString()}</Typography>
                 </CardContent>
